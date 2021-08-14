@@ -1,3 +1,24 @@
 @import url(../vendors/styles/normalize.css);
 @import url(../vendors/styles/reset.css);
 @import url(../vendors/fonts/inter-font.css);
+
+.page {
+  background-color: #000;
+  font-family: 'inter', Helvetica, arial, sans-serif;
+  color: #fff;
+}
+
+.page__container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  max-width: 880px;
+  min-height: 119px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  display: flex;
+  align-items: center;
+}
