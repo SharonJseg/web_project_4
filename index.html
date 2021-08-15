@@ -16,16 +16,18 @@
             <a href="#" class="modal__close-btn">
                 <img src="./images/close_icon.svg" alt="close btn" class="modal__close-icn">
             </a>
-            <fieldset class="form">
-                <legend>
-                    <h2 class="form__heading">Edit Profile</h2>
-                </legend>
-                <input type="text" name="name" id="name" placeholder="Name"
-                    class="form__text-input form__text-input_type_name" required>
-                <input type="text" name="title" id="title" placeholder="Title"
-                    class="form__text-input form__text-input_type_title" required>
-                <button class="form__submit-btn">Save</button>
-            </fieldset>
+            <form action="" method="get" class="form">
+                <fieldset class="form__fieldset">
+                    <legend>
+                        <h2 class="form__heading">Edit Profile</h2>
+                    </legend>
+                    <input type="text" name="name" id="name" placeholder="Name"
+                        class="form__text-input form__text-input_type_name">
+                    <input type="text" name="title" id="title" placeholder="Title"
+                        class="form__text-input form__text-input_type_title">
+                    <button type="submit" class="form__submit-btn">Save</button>
+                </fieldset>
+            </form>
         </div>
     </div>
     <div class="page__container">
@@ -33,7 +35,6 @@
         <main>
             <section class="profile">
                 <img src="./images/profile_image.jpg" alt="Jacques Cousteau image" class="profile__image">
-                <!-- <div class="profile__dashboard"> -->
                 <div class="profile__info">
                     <div class="profile__info-edit">
                         <h1 class="profile__name">Jacques Cousteau</h1>
@@ -44,7 +45,6 @@
                     <p class="profile__title">Explorer</p>
                 </div>
                 <button class="add-element-btn"><img src="./images/add.svg" alt=""></button>
-                <!-- </div> -->
             </section>
             <section class="cards">
                 <figure class="card">
@@ -107,6 +107,7 @@
             <p class="footer__copyright">© 2021 Around The U.S.</p>
         </footer>
     </div>
+    <script src="./scripts/script.js"></script>
 </body>
 
 </html>
