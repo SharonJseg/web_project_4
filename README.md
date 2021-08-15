@@ -1,6 +1,6 @@
 # Project 4: Around The U.S.
 
-![Around the U.A](https://drive.google.com/file/d/1D-vShPUTUgGRGSA4vIXw5DJDfqmqWaIU/view?usp=sharing)
+![Around the U.S](https://drive.google.com/drive/u/0/folders/1qluEYjcXuI4nKIImtj-zho-HYzHS3VFC)
 
 [Link to the Project](https://sharonjseg.github.io/web_project_4/)
 
