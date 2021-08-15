@@ -104,18 +104,17 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
-  /* grid-template-rows: repeat(2, 1fr); */
-  grid-auto-rows: auto;
+  grid-template-rows: repeat(2, minmax(361px, 1fr));
   gap: 20px 17px;
   margin: 0 auto;
   max-width: 880px;
-  align-self: center;
 }
 
 .card {
   margin: 0;
   overflow: hidden;
   border-radius: 10px;
+  background-color: #fff;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
@@ -131,10 +130,11 @@
 }
 
 .card__caption {
-  background-color: #fff;
+  /* background-color: #fff; */
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin: 0;
 }
 
 .card__name {
@@ -146,12 +146,12 @@
   font-size: 24px;
   line-height: 1.2;
   color: #000;
-  margin: 25px 0 31px 15px;
+  margin-left: 15px;
 }
 
 .card__like-btn {
   margin-right: 18px;
-  cursor: pointer;
+  align-self: center;
 }
 
 .card__like-btn:hover {
