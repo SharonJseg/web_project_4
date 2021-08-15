@@ -1,16 +1,13 @@
 # Project 4: Around The U.S.
 
-### Overview
+![Around the U.A](https://drive.google.com/file/d/1D-vShPUTUgGRGSA4vIXw5DJDfqmqWaIU/view?usp=sharing)
 
-* Figma
-* Images
+[Link to the Project](https://sharonjseg.github.io/web_project_4/)
 
-**Figma**
+### Technologies used
 
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+- Html
+- CSS
+- Javascript
 
-**Images**
-
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-
-Have fun with JavaScript!
+A responsive website created with as part of a course at [Practicum100](https://practicum.yandex.com/web/)
