@@ -1,5 +1,4 @@
 @import url(../vendors/styles/normalize.css);
-@import url(../vendors/styles/reset.css);
 @import url(../vendors/fonts/inter-font.css);
 
 .page {
@@ -57,15 +56,19 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
+  margin: 0;
 }
 
 .profile__edit {
+  background-color: transparent;
   cursor: pointer;
   box-sizing: border-box;
   width: 24px;
   height: 24px;
-  margin-bottom: 30px;
+  margin-bottom: 29px;
+  padding: 0;
   border: 1px solid #fff;
+  align-self: center;
   text-align: center;
   transition: opacity 0.3s ease-in-out;
   -webkit-transition: opacity 0.3s ease-in-out;
@@ -79,6 +82,7 @@
 }
 
 .add-element-btn {
+  background-color: transparent;
   cursor: pointer;
   max-width: 150px;
   min-height: 50px;
@@ -95,4 +99,66 @@
 
 .add-element-btn:hover {
   opacity: 60%;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  /* grid-template-rows: repeat(2, 1fr); */
+  grid-auto-rows: auto;
+  gap: 20px 17px;
+  margin: 0 auto;
+  max-width: 880px;
+  align-self: center;
+}
+
+.card {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card__image {
+  display: block;
+  width: 100%;
+}
+
+.card__caption {
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #000;
+  margin: 25px 0 31px 15px;
+}
+
+.card__like-btn {
+  margin-right: 18px;
+  cursor: pointer;
+}
+
+.card__like-btn:hover {
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -ms-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
 }
