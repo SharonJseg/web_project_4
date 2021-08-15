@@ -1,0 +1,13 @@
+.card__like-btn {
+  margin-right: 18px;
+  align-self: center;
+}
+
+.card__like-btn:hover {
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -ms-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+}

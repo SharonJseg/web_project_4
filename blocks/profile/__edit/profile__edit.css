@@ -1,0 +1,30 @@
+.profile__edit {
+  background-color: transparent;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  margin-top: 6px;
+  padding: 0;
+  border: 1px solid #fff;
+  text-align: center;
+  transition: opacity 0.3s ease-in-out;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -ms-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+}
+
+.profile__edit:hover {
+  opacity: 60%;
+}
+
+@media screen and (max-width: 425px) {
+  .profile__edit {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
