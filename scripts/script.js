@@ -11,12 +11,9 @@ let profileName = pageContainer.querySelector('.profile__name');
 let profileTitle = pageContainer.querySelector('.profile__title');
 
 function openEditor() {
-    let isOpened = modal.classList.add('modal_opened');
-    
-    if(isOpened = true) {
+    modal.classList.add('modal_opened');
     inputName.value = profileName.textContent;
     inputTitle.value = profileTitle.textContent;
-}
 }
 
 function closeEditor () {
@@ -26,12 +23,11 @@ function closeEditor () {
 
 function handleFormSubmit(evt) {
     evt.preventDefault();
-    
     profileName.textContent = `${inputName.value}`;
     profileTitle.textContent = `${inputTitle.value}`;
-
     modal.classList.remove('modal_opened');
 }
+
 
 editProfileBtn.addEventListener('click', openEditor);
 closeEditorBtn.addEventListener('click', closeEditor);

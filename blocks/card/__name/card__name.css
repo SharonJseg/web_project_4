@@ -8,6 +8,7 @@
   line-height: 1.2;
   color: #000;
   max-width: 246px;
-  margin: 25px 15px 31px 21px;
+  margin: 25px 0 31px 21px;
   padding: 0;
+  max-width: 220px;
 }
