@@ -2,7 +2,7 @@ let page = document.querySelector('.page');
 let pageContainer = page.querySelector('.page__container');
 let modal = page.querySelector('.modal');
 let formElement = document.querySelector('.form');
-let editProfileBtn = pageContainer.querySelector('.profile__edit');
+let editProfileBtn = pageContainer.querySelector('.profile__edit-btn');
 let closeEditorBtn = page.querySelector('.modal__close-btn');
 
 let inputName = formElement.querySelector('.form__text-input_type_name');

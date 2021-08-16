@@ -1,10 +1,7 @@
 .modal__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   max-width: 430px;
-  margin-bottom: 120px;
+  margin-top: 190px;
   width: 100%;
   background-color: #fff;
   border-radius: 10px;
@@ -19,6 +16,6 @@
 @media screen and (max-width: 320px) {
   .modal__container {
     max-width: 282px;
-    margin-bottom: 260px;
+    margin-top: 125px;
   }
 }

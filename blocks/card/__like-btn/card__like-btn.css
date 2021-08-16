@@ -1,6 +1,10 @@
 .card__like-btn {
+  cursor: pointer;
   margin-right: 18px;
   align-self: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }
 
 .card__like-btn:hover {

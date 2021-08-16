@@ -1,5 +1,5 @@
-.profile__edit {
-  background-color: transparent;
+.profile__edit-btn {
+  background: url(../../../images/edit_btn.svg) no-repeat center center;
   cursor: pointer;
   box-sizing: border-box;
   width: 24px;
@@ -7,7 +7,6 @@
   margin-top: 6px;
   padding: 0;
   border: 1px solid #fff;
-  text-align: center;
   transition: opacity 0.3s ease-in-out;
   -webkit-transition: opacity 0.3s ease-in-out;
   -moz-transition: opacity 0.3s ease-in-out;
@@ -15,12 +14,12 @@
   -o-transition: opacity 0.3s ease-in-out;
 }
 
-.profile__edit:hover {
+.profile__edit-btn:hover {
   opacity: 60%;
 }
 
 @media screen and (max-width: 425px) {
-  .profile__edit {
+  .profile__edit-btn {
     width: 18px;
     height: 18px;
     display: flex;
