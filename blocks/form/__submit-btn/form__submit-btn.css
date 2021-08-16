@@ -4,12 +4,13 @@
   cursor: pointer;
   border: 0;
   border-radius: 2px;
+  min-height: 50px;
   background-color: #000;
   color: #fff;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-  line-height: 50px;
+  line-height: 1.22;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
@@ -22,6 +23,7 @@
 
 @media screen and (max-width: 320px) {
   .form__submit-btn {
-    line-height: 46px;
+    min-height: 46px;
+    font-size: 14px;
   }
 }
