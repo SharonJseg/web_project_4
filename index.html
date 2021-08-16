@@ -11,25 +11,7 @@
 
 
 <body class="page">
-    <div class="modal">
-        <div class="modal__container">
-            <a href="#" class="modal__close-btn">
-                <img src="./images/close_icon.svg" alt="close btn" class="modal__close-icn">
-            </a>
-            <form action="/" method="get" class="form">
-                <fieldset class="form__fieldset">
-                    <legend>
-                        <h2 class="form__heading">Edit Profile</h2>
-                    </legend>
-                    <input type="text" name="name" id="name" placeholder="Name"
-                        class="form__text-input form__text-input_type_name">
-                    <input type="text" name="title" id="title" placeholder="Title"
-                        class="form__text-input form__text-input_type_title">
-                    <button type="submit" class="form__submit-btn">Save</button>
-                </fieldset>
-            </form>
-        </div>
-    </div>
+
     <div class="page__container">
         <header class="header"><img src="./images/logo.svg" alt="Around the U.S logo" class="logo"></header>
         <main>
@@ -106,6 +88,25 @@
         <footer class="footer">
             <p class="footer__copyright">© 2021 Around The U.S.</p>
         </footer>
+        <div class="modal">
+            <div class="modal__container">
+                <a href="#" class="modal__close-btn">
+                    <img src="./images/close_icon.svg" alt="close btn" class="modal__close-icn">
+                </a>
+                <form action="/" method="get" class="form">
+                    <fieldset class="form__fieldset">
+                        <legend>
+                            <h2 class="form__heading">Edit Profile</h2>
+                        </legend>
+                        <input type="text" name="name" id="name" placeholder="Name"
+                            class="form__text-input form__text-input_type_name">
+                        <input type="text" name="title" id="title" placeholder="Title"
+                            class="form__text-input form__text-input_type_title">
+                        <button type="submit" class="form__submit-btn">Save</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="./scripts/script.js"></script>
 </body>
