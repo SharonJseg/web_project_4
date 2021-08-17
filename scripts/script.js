@@ -4,22 +4,24 @@ let modal = page.querySelector('.modal');
 let formElement = document.querySelector('.form');
 let editProfileBtn = pageContainer.querySelector('.profile__edit-btn');
 let closeEditorBtn = page.querySelector('.modal__close-btn');
-
 let inputName = formElement.querySelector('.form__text-input_type_name');
 let inputTitle = formElement.querySelector('.form__text-input_type_title');
 let profileName = pageContainer.querySelector('.profile__name');
 let profileTitle = pageContainer.querySelector('.profile__title');
 
-function openEditor() {
-    modal.classList.add('modal_opened');
-    inputName.value = profileName.textContent;
-    inputTitle.value = profileTitle.textContent;
+
+function handleEditor () {
+    if (modal.classList.contains('modal_opened')){
+        modal.classList.remove('modal_opened');
+    } else {
+        modal.classList.add('modal_opened');
+        inputName.value = profileName.textContent;
+        inputTitle.value = profileTitle.textContent;
+    }
 }
 
-function closeEditor () {
-    modal.classList.remove('modal_opened');
-}
-
+editProfileBtn.addEventListener('click', handleEditor);
+closeEditorBtn.addEventListener('click', handleEditor);
 
 function handleFormSubmit(evt) {
     evt.preventDefault();
@@ -28,8 +30,5 @@ function handleFormSubmit(evt) {
     modal.classList.remove('modal_opened');
 }
 
-
-editProfileBtn.addEventListener('click', openEditor);
-closeEditorBtn.addEventListener('click', closeEditor);
 formElement.addEventListener('submit', handleFormSubmit);
 
