@@ -84,6 +84,7 @@ function populateCards () {
             
             modalElement.querySelector('.modal__close-btn').addEventListener('click', () => {
                 modalElement.classList.toggle('modal_opened');
+                modalElement.remove();
             }) 
         })
         cardsContainer.append(cardElement)
