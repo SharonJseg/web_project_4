@@ -31,3 +31,53 @@
 @import url(../blocks/form/__heading/form__heading.css);
 @import url(../blocks/form/__text-input/form__text-input.css);
 @import url(../blocks/form/__submit-btn/form__submit-btn.css);
+
+.popup {
+  content: '';
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__container_popup {
+  position: relative;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 75vw;
+  width: auto;
+}
+
+.card__image_popup {
+  display: block;
+  cursor: default;
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: cover;
+  height: 100%;
+}
+
+@media screen and (max-width: 425px) {
+  .modal__container_popup {
+    min-height: 60vh;
+  }
+
+  .card__image_popup {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.card__name_popup {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #fff;
+  margin: 10px 0 0;
+}

@@ -1,14 +1,13 @@
-const page = document.querySelector('.page');
-const pageContainer = page.querySelector('.page__container');
-const modal = page.querySelector('.modal');
+const modal = document.querySelector('.modal');
 const formElement = document.querySelector('.form');
-const editProfileBtn = pageContainer.querySelector('.profile__edit-btn');
-const closeEditorBtn = page.querySelector('.modal__close-btn');
+const editProfileBtn = document.querySelector('.profile__edit-btn');
+const closeEditorBtn = document.querySelector('.modal__close-btn');
 const inputName = formElement.querySelector('.form__text-input_type_name');
 const inputTitle = formElement.querySelector('.form__text-input_type_title');
-const profileName = pageContainer.querySelector('.profile__name');
-const profileTitle = pageContainer.querySelector('.profile__title');
-const cardsContainer = document.querySelector('.cards__container')
+const profileName = document.querySelector('.profile__name');
+const profileTitle = document.querySelector('.profile__title');
+const cardsContainer = document.querySelector('.cards__container');
+const popUpContainer = document.querySelector('.popup__container');
 
 
 function handleEditor () {
@@ -54,11 +53,9 @@ const initialCards = [
         link: 'https://images.unsplash.com/photo-1620497998791-64bb5dc460b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2145&q=80'}
 ]
 
-
-
 function populateCards () {
     const cardTemplate = document.querySelector('#card-template').content;
-    
+
     initialCards.forEach(card => {
         const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
         cardElement.querySelector('.card__name').textContent = card.name;
@@ -66,12 +63,32 @@ function populateCards () {
         cardElement.querySelector('.card__image').setAttribute('alt', card.name);
         cardElement.querySelector('.card__like-button').addEventListener('click', (evt) => {
             evt.target.classList.toggle('card__like-button_active');
+            // Add like to the image object if like button was clicked for future sorting by the likes
+            evt.target.classList.contains('card__like-button_active') ? card.like = true : card.like = false;
         })
         cardElement.querySelector('.card__delete-button').addEventListener('click', (evt) => {
             evt.target.closest('.card__container').remove();
         })
+        cardElement.querySelector('.card__image').addEventListener('click', (evt) => {
+            
+            const imageModalTemplate = document.querySelector('#image-modal').content;
+            const modalElement = imageModalTemplate.querySelector('.modal').cloneNode(true);
+            modalElement.classList.toggle('modal_opened');
+            popUpContainer.append(modalElement);
+
+            const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
+            const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
+           
+            modalElement.querySelector('.card__image').setAttribute('src', targetSrc);
+            modalElement.querySelector('.card__name').textContent = targetName;
+            
+            modalElement.querySelector('.modal__close-btn').addEventListener('click', () => {
+                modalElement.classList.toggle('modal_opened');
+            }) 
+        })
         cardsContainer.append(cardElement)
-    })    
+    })   
 }
 
 populateCards();
+
