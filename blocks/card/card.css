@@ -7,7 +7,10 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  max-height: 361px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }

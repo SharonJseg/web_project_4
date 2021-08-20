@@ -25,58 +25,84 @@
                     </div>
                     <p class="profile__title">Explorer</p>
                 </div>
-                <button class="profile__add-element-btn" type="button"><img src="./images/add.svg"
-                        alt="add element button"></button>
+                <button class="profile__add-element-btn" type="button" aria-label="add picture button"><img
+                        src="./images/add.svg" alt="add element button"></button>
             </section>
             <section class="cards">
-                <article class="card">
-                    <img src="./images/Yosemite_valley.jpg" alt="Yosemite Valley" class="card__image">
-                    <div class="card__caption">
-                        <h2 class="card__name">Yosemite Valley</h2>
-                        <button class="card__like-btn" type="button" aria-label="like button">
-                        </button>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="./images/lake_louise.jpg" alt="Lake Louise" class="card__image">
-                    <div class="card__caption">
-                        <h2 class="card__name">Lake Louise</h2>
-                        <button class="card__like-btn" type="button" aria-label="like button">
-                        </button>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="./images/bald_mountains.jpg" alt="Bald Mountains" class="card__image">
-                    <div class="card__caption">
-                        <h2 class="card__name">Bald Mountains</h2>
-                        <button class="card__like-btn" type="button" aria-label="like button">
-                        </button>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="./images/latemar.jpg" alt="Latemar" class="card__image">
-                    <div class="card__caption">
-                        <h2 class="card__name">Latemar</h2>
-                        <button class="card__like-btn" type="button" aria-label="like button">
-                        </button>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="./images/vanoise_national_park.jpg" alt="Vanoise National Park" class="card__image">
-                    <div class="card__caption">
-                        <h2 class="card__name">Vanoise National Park</h2>
-                        <button class="card__like-btn" type="button" aria-label="like button">
-                        </button>
-                    </div>
-                </article>
-                <article class="card">
-                    <img src="./images/lago_di_braies.jpg" alt="Lago di Braies" class="card__image">
-                    <div class="card__caption">
-                        <h2 class="card__name">Lago di Braies</h2>
-                        <button class="card__like-btn" type="button" aria-label="like button">
-                        </button>
-                    </div>
-                </article>
+                <ul class="cards__container">
+                    <li>
+                        <article class="card">
+                            <button class="card__delete-button" type="button" aria-label="delete image"></button>
+                            <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2103&q=80"
+                                alt="Yosemite Valley" class="card__image">
+                            <div class="card__caption">
+                                <h2 class="card__name">Yosemite Valley</h2>
+                                <button class="card__like-btn" type="button" aria-label="like button">
+                                </button>
+                            </div>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card">
+                            <button class="card__delete-button" type="button" aria-label="delete image"></button>
+                            <img src="https://images.unsplash.com/photo-1581088382991-83c7f170de75?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2134&q=80"
+                                alt="Lake Louise" class="card__image">
+                            <div class="card__caption">
+                                <h2 class="card__name">Lake Louise</h2>
+                                <button class="card__like-btn" type="button" aria-label="like button">
+                                </button>
+                            </div>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card">
+                            <button class="card__delete-button" type="button" aria-label="delete image"></button>
+                            <img src="https://images.unsplash.com/photo-1601025252036-36faf914679d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2001&q=80"
+                                alt="Bald Mountains" class="card__image">
+                            <div class="card__caption">
+                                <h2 class="card__name">Bald Mountains</h2>
+                                <button class="card__like-btn" type="button" aria-label="like button">
+                                </button>
+                            </div>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card">
+                            <button class="card__delete-button" type="button" aria-label="delete image"></button>
+                            <img src="https://images.unsplash.com/photo-1539540706191-b673a0a5b6d6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2134&q=80"
+                                alt="Latemar" class="card__image">
+                            <div class="card__caption">
+                                <h2 class="card__name">Latemar</h2>
+                                <button class="card__like-btn" type="button" aria-label="like button">
+                                </button>
+                            </div>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card">
+                            <button class="card__delete-button" type="button" aria-label="delete image"></button>
+                            <img src="https://images.unsplash.com/photo-1549752448-38f4d94420f5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                                alt="Vanoise National Park" class="card__image">
+                            <div class="card__caption">
+                                <h2 class="card__name">Vanoise National Park</h2>
+                                <button class="card__like-btn" type="button" aria-label="like button">
+                                </button>
+                            </div>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card">
+                            <button class="card__delete-button" type="button" aria-label="delete image"></button>
+                            <img src="https://images.unsplash.com/photo-1620497998791-64bb5dc460b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2145&q=80"
+                                alt="Lago di Braies" class="card__image">
+                            <div class="card__caption">
+                                <h2 class="card__name">Lago di Braies</h2>
+                                <button class="card__like-btn" type="button" aria-label="like button">
+                                </button>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
             </section>
         </main>
         <footer class="footer">
