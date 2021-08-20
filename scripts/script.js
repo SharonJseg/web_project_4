@@ -10,6 +10,7 @@ const cardsContainer = document.querySelector('.cards__container');
 const popUpContainer = document.querySelector('.popup__container');
 
 
+
 function handleEditor () {
     if (modal.classList.contains('modal_opened')){
         modal.classList.remove('modal_opened');
@@ -70,7 +71,6 @@ function populateCards () {
             evt.target.closest('.card__container').remove();
         })
         cardElement.querySelector('.card__image').addEventListener('click', (evt) => {
-            
             const imageModalTemplate = document.querySelector('#image-modal').content;
             const modalElement = imageModalTemplate.querySelector('.modal').cloneNode(true);
             modalElement.classList.toggle('modal_opened');
