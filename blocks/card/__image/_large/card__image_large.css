@@ -1,0 +1,15 @@
+.card__image_large {
+  display: block;
+  cursor: default;
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: cover;
+  height: 100%;
+}
+
+@media screen and (max-width: 425px) {
+  .card__image_large {
+    object-fit: cover;
+    object-position: center;
+  }
+}

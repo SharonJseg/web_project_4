@@ -1,5 +1,6 @@
 const modalEditForm = document.querySelector('.modal_type_edit-profile');
 const modalAddCard = document.querySelector('.modal_type_add-element');
+const modalImage = document.querySelector('.modal_type_image');
 
 const editProfileBtn = document.querySelector('.profile__edit-btn');
 const closeProfileBtn = modalEditForm.querySelector('.modal__close-btn');
@@ -15,7 +16,6 @@ const inputUrl = modalAddCard.querySelector('.form__text-input_type_url');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const cardsContainer = document.querySelector('.cards__container');
-const popUpContainer = document.querySelector('.popup__container');
 
 const cardTemplate = document.querySelector('#card-template').content;
 const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
@@ -68,6 +68,7 @@ const initialCards = [
 ]
 
 
+
 initialCards.forEach(card => {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
@@ -77,31 +78,28 @@ initialCards.forEach(card => {
     cardsContainer.appendChild(cardElement);
 
     cardElement.querySelector('.card__delete-button').addEventListener('click', (evt) => {
-        console.log(evt.target)
         evt.target.closest('.card__container').remove();
       })
-    
+   
     cardElement.querySelector('.card__like-button').addEventListener('click', (evt) => {
         evt.target.classList.toggle('card__like-button_active');
       })
-
+    
     cardElement.querySelector('.card__image').addEventListener('click', (evt) => {
-    const imageModalTemplate = document.querySelector('#image-template').content;
-    const modalElement = imageModalTemplate.querySelector('.modal').cloneNode(true);
-    modalElement.classList.toggle('modal_opened');
-    popUpContainer.append(modalElement);
+        modalImage.classList.toggle('modal_opened');
+        const imageModalTemplate = document.querySelector('#image-template').content;
+        const modalContainer = imageModalTemplate.querySelector('.modal__container').cloneNode(true);
+        modalImage.append(modalContainer);
+        const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
+        const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
+        modalContainer.querySelector('.card__image').setAttribute('src', targetSrc);
+        modalContainer.querySelector('.card__image').setAttribute('alt', targetName);
+        modalContainer.querySelector('.card__name').textContent = targetName;
 
-    const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
-    const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
-    
-    modalElement.querySelector('.card__image').setAttribute('src', targetSrc);
-    modalElement.querySelector('.card__image').setAttribute('alt', targetName);
-    modalElement.querySelector('.card__name').textContent = targetName;
-    
-    modalElement.querySelector('.modal__close-btn').addEventListener('click', () => {
-    modalElement.classList.toggle('modal_opened');
-    modalElement.remove();
-        }) 
+        modalContainer.querySelector('.modal__close-btn').addEventListener('click', () => {
+        modalImage.classList.toggle('modal_opened');
+        modalContainer.remove();
+        })
     })
 })
 
@@ -128,7 +126,6 @@ function createCard (titleValue, urlValue){
     cardsContainer.prepend(cardElement);
     
     cardElement.querySelector('.card__delete-button').addEventListener('click', (evt) => {
-        console.log(evt.target)
         evt.target.closest('.card__container').remove();
       })
 
@@ -137,22 +134,20 @@ function createCard (titleValue, urlValue){
       })
 
     cardElement.querySelector('.card__image').addEventListener('click', (evt) => {
-    const imageModalTemplate = document.querySelector('#image-template').content;
-    const modalElement = imageModalTemplate.querySelector('.modal').cloneNode(true);
-    modalElement.classList.toggle('modal_opened');
-    popUpContainer.append(modalElement);
+        modalImage.classList.toggle('modal_opened');
+        const imageModalTemplate = document.querySelector('#image-template').content;
+        const modalContainer = imageModalTemplate.querySelector('.modal__container').cloneNode(true);
+        modalImage.append(modalContainer);
+        const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
+        const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
+        modalContainer.querySelector('.card__image').setAttribute('src', targetSrc);
+        modalContainer.querySelector('.card__image').setAttribute('alt', targetName);
+        modalContainer.querySelector('.card__name').textContent = targetName;
 
-    const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
-    const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
-    
-    modalElement.querySelector('.card__image').setAttribute('src', targetSrc);
-    modalElement.querySelector('.card__image').setAttribute('alt', targetName);
-    modalElement.querySelector('.card__name').textContent = targetName;
-    
-    modalElement.querySelector('.modal__close-btn').addEventListener('click', () => {
-    modalElement.classList.toggle('modal_opened');
-    modalElement.remove();
-        }) 
+        modalContainer.querySelector('.modal__close-btn').addEventListener('click', () => {
+        modalImage.classList.toggle('modal_opened');
+        modalContainer.remove();
+        })
     })
 }
 
