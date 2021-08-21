@@ -23,7 +23,7 @@
 
                         </button>
                     </div>
-                    <p class="profile__title">Explorer</p>
+                    <p class="profile__job">Explorer</p>
                 </div>
                 <button class="profile__add-element-btn" type="button" aria-label="add picture button"><img
                         src="./images/add.svg" alt="add element button"></button>
@@ -37,7 +37,8 @@
         <footer class="footer">
             <p class="footer__copyright">© 2021 Around The U.S.</p>
         </footer>
-        <div class="modal">
+
+        <div class="modal modal_type_edit-profile">
             <div class="modal__container">
                 <button type="button" aria-label="Close button" class="modal__close-btn">
                 </button>
@@ -48,13 +49,33 @@
                         </legend>
                         <input type="text" name="name" id="name" placeholder="Name"
                             class="form__text-input form__text-input_type_name">
-                        <input type="text" name="title" id="title" placeholder="Title"
-                            class="form__text-input form__text-input_type_title">
+                        <input type="text" name="job" id="job" placeholder="Job"
+                            class="form__text-input form__text-input_type_job">
                         <button type="submit" class="form__submit-btn">Save</button>
                     </fieldset>
                 </form>
             </div>
         </div>
+
+        <div class="modal modal_type_add-element">
+            <div class="modal__container">
+                <button type="button" aria-label="Close button" class="modal__close-btn">
+                </button>
+                <form action="/" name="add-card" method="" class="form">
+                    <fieldset class="form__fieldset">
+                        <legend>
+                            <h2 class="form__heading">New Place</h2>
+                        </legend>
+                        <input type="text" name="title" id="title" placeholder="Title"
+                            class="form__text-input form__text-input_type_title">
+                        <input type="url" name="url" id="url" placeholder="Image link"
+                            class="form__text-input form__text-input_type_url">
+                        <button type="submit" class="form__submit-btn">Save</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
         <div class="modal">
             <div class="modal__container modal__container_popup">
                 <button type="button" aria-label="Close button" class="modal__close-btn">

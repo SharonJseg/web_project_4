@@ -1,37 +1,75 @@
-const modal = document.querySelector('.modal');
-const formElement = document.querySelector('.form');
+const modalEditForm = document.querySelector('.modal_type_edit-profile');
+const modalAddCard = document.querySelector('.modal_type_add-element');
+
 const editProfileBtn = document.querySelector('.profile__edit-btn');
-const closeEditorBtn = document.querySelector('.modal__close-btn');
-const inputName = formElement.querySelector('.form__text-input_type_name');
-const inputTitle = formElement.querySelector('.form__text-input_type_title');
+const closeProfileBtn = modalEditForm.querySelector('.modal__close-btn');
+const closeAddCardModalBtn = modalAddCard.querySelector('.modal__close-btn');
+const addCardBtn = document.querySelector('.profile__add-element-btn');
+
+const inputName = modalEditForm.querySelector('.form__text-input_type_name');
+const inputJob = modalEditForm.querySelector('.form__text-input_type_job');
+
+const inputTitle = modalAddCard.querySelector('.form__text-input_type_title'); 
+const inputUrl = modalAddCard.querySelector('.form__text-input_type_url'); 
+
 const profileName = document.querySelector('.profile__name');
-const profileTitle = document.querySelector('.profile__title');
+const profileJob = document.querySelector('.profile__job');
 const cardsContainer = document.querySelector('.cards__container');
 const popUpContainer = document.querySelector('.popup__container');
 
+const cardTemplate = document.querySelector('#card-template').content;
+
+
+
+function addCard () {
+    if(modalAddCard.classList.contains('modal_opened')){
+        modalAddCard.classList.remove('modal_opened');
+    } else {
+        modalAddCard.classList.add('modal_opened');
+        inputTitle.value = '';
+        inputUrl.value = '';
+    }
+    closeAddCardModalBtn.addEventListener('click', addCard);
+
+    modalAddCard.addEventListener('submit', (evt) => {
+        const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
+        
+        evt.preventDefault()
+
+        inputTitle.value = cardElement.querySelector('card__name'); 
+        // inputUrl.value = cardElement.querySelector('card__image').setAttribute('src'); 
+        cardsContainer.prepend(cardElement);
+        modalAddCard.classList.remove('modal_opened');
+
+        })
+    
+}
+
+addCardBtn.addEventListener('click', addCard);
 
 
 function handleEditor () {
-    if (modal.classList.contains('modal_opened')){
-        modal.classList.remove('modal_opened');
+    if (modalEditForm.classList.contains('modal_opened')){
+        modalEditForm.classList.remove('modal_opened');
     } else {
-        modal.classList.add('modal_opened');
+        modalEditForm.classList.add('modal_opened');
         inputName.value = profileName.textContent;
-        inputTitle.value = profileTitle.textContent;
+        inputJob.value = profileJob.textContent;
     }
+
+    closeProfileBtn.addEventListener('click', handleEditor);
 }
 
 editProfileBtn.addEventListener('click', handleEditor);
-closeEditorBtn.addEventListener('click', handleEditor);
 
 function handleFormSubmit(evt) {
     evt.preventDefault();
     profileName.textContent = `${inputName.value}`;
-    profileTitle.textContent = `${inputTitle.value}`;
-    modal.classList.remove('modal_opened');
+    profileJob.textContent = `${inputJob.value}`;
+    modalEditForm.classList.remove('modal_opened');
 }
 
-formElement.addEventListener('submit', handleFormSubmit);
+modalEditForm.addEventListener('submit', handleFormSubmit);
 
 const initialCards = [
     {
@@ -80,6 +118,7 @@ function populateCards () {
             const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
            
             modalElement.querySelector('.card__image').setAttribute('src', targetSrc);
+            modalElement.querySelector('.card__image').setAttribute('alt', targetName);
             modalElement.querySelector('.card__name').textContent = targetName;
             
             modalElement.querySelector('.modal__close-btn').addEventListener('click', () => {
