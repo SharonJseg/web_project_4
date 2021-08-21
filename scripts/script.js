@@ -17,37 +17,11 @@ const profileJob = document.querySelector('.profile__job');
 const cardsContainer = document.querySelector('.cards__container');
 const popUpContainer = document.querySelector('.popup__container');
 
-
-function openCardForm () {
-    if(modalAddCard.classList.contains('modal_opened')){
-        modalAddCard.classList.remove('modal_opened');
-    } else {
-        modalAddCard.classList.add('modal_opened');
-        inputTitle.value = '';
-        inputUrl.value = '';
-    }
-    closeAddCardModalBtn.addEventListener('click', openCardForm);
-}
-
-addCardBtn.addEventListener('click', openCardForm);
-
-function addCard (titleValue, urlValue){
-    const cardTemplate = document.querySelector('#card-template').content;
-    const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
-    console.log(titleValue, urlValue)
-    
-    cardElement.querySelector('.card__name').textContent = titleValue;
-    cardElement.querySelector('.card__image').setAttribute('src', urlValue);
-    cardsContainer.prepend(cardElement);
-}
+const cardTemplate = document.querySelector('#card-template').content;
+const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
+const title = cardElement.querySelector('.card__name');
 
 
-modalAddCard.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    
-    addCard(inputTitle.value, inputUrl.value);
-    modalAddCard.classList.remove('modal_opened');
-})   
 
 
 function handleEditor () {
@@ -58,7 +32,6 @@ function handleEditor () {
         inputName.value = profileName.textContent;
         inputJob.value = profileJob.textContent;
     }
-
     closeProfileBtn.addEventListener('click', handleEditor);
 }
 
@@ -94,43 +67,97 @@ const initialCards = [
         link: 'https://images.unsplash.com/photo-1620497998791-64bb5dc460b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2145&q=80'}
 ]
 
-function populateCards () {
+
+initialCards.forEach(card => {
     const cardTemplate = document.querySelector('#card-template').content;
+    const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
+    cardElement.querySelector('.card__name').textContent = card.name;
+    cardElement.querySelector('.card__image').setAttribute('src', card.link);
+    cardElement.querySelector('.card__image').setAttribute('alt', card.name);
+    cardsContainer.appendChild(cardElement);
 
-    initialCards.forEach(card => {
-        const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
-        cardElement.querySelector('.card__name').textContent = card.name;
-        cardElement.querySelector('.card__image').setAttribute('src', card.link);
-        cardElement.querySelector('.card__image').setAttribute('alt', card.name);
-        cardElement.querySelector('.card__like-button').addEventListener('click', (evt) => {
-            evt.target.classList.toggle('card__like-button_active');
-            // Add like to the image object if like button was clicked for future sorting by the likes
-            evt.target.classList.contains('card__like-button_active') ? card.like = true : card.like = false;
-        })
-        cardElement.querySelector('.card__delete-button').addEventListener('click', (evt) => {
-            evt.target.closest('.card__container').remove();
-        })
-        cardElement.querySelector('.card__image').addEventListener('click', (evt) => {
-            const imageModalTemplate = document.querySelector('#image-modal').content;
-            const modalElement = imageModalTemplate.querySelector('.modal').cloneNode(true);
-            modalElement.classList.toggle('modal_opened');
-            popUpContainer.append(modalElement);
+    cardElement.querySelector('.card__delete-button').addEventListener('click', (evt) => {
+        console.log(evt.target)
+        evt.target.closest('.card__container').remove();
+      })
+    
+    cardElement.querySelector('.card__like-button').addEventListener('click', (evt) => {
+        evt.target.classList.toggle('card__like-button_active');
+      })
 
-            const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
-            const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
-           
-            modalElement.querySelector('.card__image').setAttribute('src', targetSrc);
-            modalElement.querySelector('.card__image').setAttribute('alt', targetName);
-            modalElement.querySelector('.card__name').textContent = targetName;
-            
-            modalElement.querySelector('.modal__close-btn').addEventListener('click', () => {
-                modalElement.classList.toggle('modal_opened');
-                modalElement.remove();
-            }) 
-        })
-        cardsContainer.append(cardElement)
-    })   
+    cardElement.querySelector('.card__image').addEventListener('click', (evt) => {
+    const imageModalTemplate = document.querySelector('#image-template').content;
+    const modalElement = imageModalTemplate.querySelector('.modal').cloneNode(true);
+    modalElement.classList.toggle('modal_opened');
+    popUpContainer.append(modalElement);
+
+    const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
+    const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
+    
+    modalElement.querySelector('.card__image').setAttribute('src', targetSrc);
+    modalElement.querySelector('.card__image').setAttribute('alt', targetName);
+    modalElement.querySelector('.card__name').textContent = targetName;
+    
+    modalElement.querySelector('.modal__close-btn').addEventListener('click', () => {
+    modalElement.classList.toggle('modal_opened');
+    modalElement.remove();
+        }) 
+    })
+})
+
+function openCardForm () {
+    if(modalAddCard.classList.contains('modal_opened')){
+        modalAddCard.classList.remove('modal_opened');
+    } else {
+        modalAddCard.classList.add('modal_opened');
+        inputTitle.value = '';
+        inputUrl.value = '';
+    }
+    closeAddCardModalBtn.addEventListener('click', openCardForm);
 }
 
-populateCards();
+addCardBtn.addEventListener('click', openCardForm);
 
+
+function createCard (titleValue, urlValue){
+    const cardTemplate = document.querySelector('#card-template').content;
+    const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
+    cardElement.querySelector('.card__name').textContent = titleValue;
+    cardElement.querySelector('.card__image').setAttribute('src', urlValue);
+    cardElement.querySelector('.card__image').setAttribute('alt', titleValue);
+    cardsContainer.prepend(cardElement);
+    
+    cardElement.querySelector('.card__delete-button').addEventListener('click', (evt) => {
+        console.log(evt.target)
+        evt.target.closest('.card__container').remove();
+      })
+
+    cardElement.querySelector('.card__like-button').addEventListener('click', (evt) => {
+        evt.target.classList.toggle('card__like-button_active');
+      })
+
+    cardElement.querySelector('.card__image').addEventListener('click', (evt) => {
+    const imageModalTemplate = document.querySelector('#image-template').content;
+    const modalElement = imageModalTemplate.querySelector('.modal').cloneNode(true);
+    modalElement.classList.toggle('modal_opened');
+    popUpContainer.append(modalElement);
+
+    const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
+    const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
+    
+    modalElement.querySelector('.card__image').setAttribute('src', targetSrc);
+    modalElement.querySelector('.card__image').setAttribute('alt', targetName);
+    modalElement.querySelector('.card__name').textContent = targetName;
+    
+    modalElement.querySelector('.modal__close-btn').addEventListener('click', () => {
+    modalElement.classList.toggle('modal_opened');
+    modalElement.remove();
+        }) 
+    })
+}
+
+modalAddCard.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    createCard(inputTitle.value, inputUrl.value);
+    modalAddCard.classList.remove('modal_opened');
+})   
