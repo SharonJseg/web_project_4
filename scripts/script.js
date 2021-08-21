@@ -17,11 +17,8 @@ const profileJob = document.querySelector('.profile__job');
 const cardsContainer = document.querySelector('.cards__container');
 const popUpContainer = document.querySelector('.popup__container');
 
-const cardTemplate = document.querySelector('#card-template').content;
 
-
-
-function addCard () {
+function openCardForm () {
     if(modalAddCard.classList.contains('modal_opened')){
         modalAddCard.classList.remove('modal_opened');
     } else {
@@ -29,23 +26,28 @@ function addCard () {
         inputTitle.value = '';
         inputUrl.value = '';
     }
-    closeAddCardModalBtn.addEventListener('click', addCard);
-
-    modalAddCard.addEventListener('submit', (evt) => {
-        const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
-        
-        evt.preventDefault()
-
-        inputTitle.value = cardElement.querySelector('card__name'); 
-        // inputUrl.value = cardElement.querySelector('card__image').setAttribute('src'); 
-        cardsContainer.prepend(cardElement);
-        modalAddCard.classList.remove('modal_opened');
-
-        })
-    
+    closeAddCardModalBtn.addEventListener('click', openCardForm);
 }
 
-addCardBtn.addEventListener('click', addCard);
+addCardBtn.addEventListener('click', openCardForm);
+
+function addCard (titleValue, urlValue){
+    const cardTemplate = document.querySelector('#card-template').content;
+    const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
+    console.log(titleValue, urlValue)
+    
+    cardElement.querySelector('.card__name').textContent = titleValue;
+    cardElement.querySelector('.card__image').setAttribute('src', urlValue);
+    cardsContainer.prepend(cardElement);
+}
+
+
+modalAddCard.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    
+    addCard(inputTitle.value, inputUrl.value);
+    modalAddCard.classList.remove('modal_opened');
+})   
 
 
 function handleEditor () {
