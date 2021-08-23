@@ -85,9 +85,9 @@ const openImageGallery = evt => {
     modalImage.classList.add('modal_opened');
     const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
     const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
-    modalImage.querySelector('.card__image').setAttribute('src', targetSrc);
-    modalImage.querySelector('.card__image').setAttribute('alt', targetName);
-    modalImage.querySelector('.card__name').textContent = targetName;
+    modalImage.querySelector('.modal__image').setAttribute('src', targetSrc);
+    modalImage.querySelector('.modal__image').setAttribute('alt', targetName);
+    modalImage.querySelector('.modal__title').textContent = targetName;
     modalImage.querySelector('.modal__close-btn').addEventListener('click', closePopUp)
 }
 

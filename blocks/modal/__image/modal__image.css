@@ -1,4 +1,4 @@
-.card__image_large {
+.modal__image {
   display: block;
   cursor: default;
   max-width: 75vw;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 425px) {
-  .card__image_large {
+  .modal__image {
     object-fit: cover;
     object-position: center;
   }
