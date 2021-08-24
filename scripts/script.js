@@ -22,56 +22,50 @@ const cardsContainer = document.querySelector('.cards__container');
 
 
 const openPopUp = popup => {
-    if (popup.target == editProfileBtn){
-        openEditProfile();
-    } else if (popup.target == addCardBtn) {
-        openAddCardPopup();
-    }
+    popup.classList.add('modal_opened')
 }
 
 const openEditProfile = () => {
-    modalEditForm.classList.add('modal_opened')
+    openPopUp(modalEditForm)
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
 }
 
 const openAddCardPopup = () => {
-    modalAddCard.classList.add('modal_opened')
+    openPopUp(modalAddCard)
     inputTitle.value = '';
     inputUrl.value = '';
 }
 
 const closePopUp = popup => {
-    if (popup.target == closeProfileBtn){
-        closeEditProfilePopup();
-    } else if (popup.target == closeAddCardModalBtn) {
-        closeAddCardPopup();
-    } else {
-        modalImage.classList.remove('modal_opened');
-    }
+    popup.classList.remove('modal_opened');
 }
 
 const closeEditProfilePopup = () => {
-    modalEditForm.classList.remove('modal_opened');
+    closePopUp(modalEditForm);
 }
 
 const closeAddCardPopup = () => {
-    modalAddCard.classList.remove('modal_opened');
+    closePopUp(modalAddCard);
 }
 
-editProfileBtn.addEventListener('click', openPopUp);
-addCardBtn.addEventListener('click', openPopUp);
-closeProfileBtn.addEventListener('click', closePopUp);
-closeAddCardModalBtn.addEventListener('click', closePopUp);
+const modalImagePopup = () => {
+    closePopUp(modalImage);
+}
+
+editProfileBtn.addEventListener('click', openEditProfile);
+addCardBtn.addEventListener('click', openAddCardPopup);
+closeProfileBtn.addEventListener('click', closeEditProfilePopup);
+closeAddCardModalBtn.addEventListener('click', closeAddCardPopup);
 
 
-const submitForm = evt => {
+const submitEditProfileForm = evt => {
     evt.preventDefault();
     profileName.textContent = inputName.value;
     profileJob.textContent = inputJob.value;
     closeEditProfilePopup();
 }
-modalEditForm.addEventListener('submit', submitForm);
+modalEditForm.addEventListener('submit', submitEditProfileForm);
 
 const deleteCard = evt => {
     evt.target.closest('.card__container').remove();
@@ -82,14 +76,16 @@ const likeCard = evt => {
 }
 
 const openImageGallery = evt => {
-    modalImage.classList.add('modal_opened');
+    openPopUp(modalImage);
+    const modalLargeImage =  modalImage.querySelector('.modal__image');
     const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
     const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
-    modalImage.querySelector('.modal__image').setAttribute('src', targetSrc);
-    modalImage.querySelector('.modal__image').setAttribute('alt', targetName);
+    modalLargeImage.setAttribute('src', targetSrc);
+    modalLargeImage.setAttribute('alt', targetName);
     modalImage.querySelector('.modal__title').textContent = targetName;
-    modalImage.querySelector('.modal__close-btn').addEventListener('click', closePopUp)
 }
+
+modalImage.querySelector('.modal__close-btn').addEventListener('click', modalImagePopup)
 
 const createCard = (title, url) => {
     const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
@@ -114,7 +110,7 @@ modalAddCard.addEventListener('submit', evt => {
     const title = inputTitle.value;
     const url = inputUrl.value;
     cardsContainer.prepend(createCard(title, url));
-    modalAddCard.classList.remove('modal_opened');
+    closePopUp(modalAddCard);
 })   
 
 
