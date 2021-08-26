@@ -1,3 +1,4 @@
+// import enableValidattion from "./validate.js"
 import initialCards from "./initialCards.js";
 
 const modalEditForm = document.querySelector('.modal_type_edit-profile');
@@ -59,8 +60,8 @@ closeProfileBtn.addEventListener('click', closeEditProfilePopup);
 closeAddCardModalBtn.addEventListener('click', closeAddCardPopup);
 
 
-const submitEditProfileForm = evt => {
-    evt.preventDefault();
+const submitEditProfileForm = () => {
+    // evt.preventDefault();
     profileName.textContent = inputName.value;
     profileJob.textContent = inputJob.value;
     closeEditProfilePopup();
@@ -105,12 +106,18 @@ initialCards.forEach(card => {
     cardsContainer.append(createCard(card.name, card.link));
 })
 
-modalAddCard.addEventListener('submit', evt => {
-    evt.preventDefault();
+modalAddCard.addEventListener('submit', () => {
+    // evt.preventDefault();
     const title = inputTitle.value;
     const url = inputUrl.value;
     cardsContainer.prepend(createCard(title, url));
     closePopUp(modalAddCard);
 })   
 
+
+// enableValidattion({
+//     formSelector: '.form'
+// })
+
+// console.log(enableValidattion)
 
