@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <div class="modal modal_type_add-element">
+        <div class="modal modal_type_add-element modal_opened">
             <div class="modal__container">
                 <button type="button" aria-label="Close button" class="modal__close-btn">
                 </button>
@@ -70,9 +70,13 @@
                         </legend>
                         <input type="text" name="title" id="title" placeholder="Title"
                             class="form__text-input form__text-input_type_title">
+                        <span class="form__validation-error form__validation-error_type_title">Please fill out this
+                            field.</span>
                         <input type="url" name="url" id="url" placeholder="Image link"
-                            class="form__text-input form__text-input_type_url">
-                        <button class="form__submit-btn">Save</button>
+                            class="form__text-input form__text-input_type_url form__text-input_error">
+                        <span class="form__validation-error form__validation-error_type_url">Please enter a web
+                            address.</span>
+                        <button class="form__submit-btn form__submit-btn_disabled">Save</button>
                     </fieldset>
                 </form>
             </div>

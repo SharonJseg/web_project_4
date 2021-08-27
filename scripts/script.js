@@ -1,4 +1,4 @@
-// import enableValidattion from "./validate.js"
+// import {enableValidation, setEventListeners} from "./validate.js"
 import initialCards from "./initialCards.js";
 
 const modalEditForm = document.querySelector('.modal_type_edit-profile');
@@ -20,7 +20,6 @@ const profileJob = document.querySelector('.profile__job');
 
 const cardTemplate = document.querySelector('#card-template').content;
 const cardsContainer = document.querySelector('.cards__container');
-
 
 const openPopUp = popup => {
     popup.classList.add('modal_opened')
