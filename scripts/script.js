@@ -1,4 +1,4 @@
-// import {enableValidation, setEventListeners} from "./validate.js"
+import resetValidation from "./validate.js"
 import initialCards from "./initialCards.js";
 
 const modalEditForm = document.querySelector('.modal_type_edit-profile');
@@ -23,6 +23,10 @@ const cardsContainer = document.querySelector('.cards__container');
 
 const openPopUp = popup => {
     popup.classList.add('modal_opened');
+    popUpHandler(popup)
+}
+
+const popUpHandler = popup => {
     document.addEventListener('keydown', evt => {
         if(popup.classList.contains('modal_opened') && evt.key === 'Escape') {
             closePopUp(popup);
@@ -49,6 +53,7 @@ const openAddCardPopup = () => {
 
 const closePopUp = popup => {
     popup.classList.remove('modal_opened');
+    resetValidation(popup) 
 }
 
 const closeEditProfilePopup = () => {
@@ -70,7 +75,6 @@ closeAddCardModalBtn.addEventListener('click', closeAddCardPopup);
 
 
 const submitEditProfileForm = () => {
-    // evt.preventDefault();
     profileName.textContent = inputName.value;
     profileJob.textContent = inputJob.value;
     closeEditProfilePopup();
@@ -115,18 +119,13 @@ initialCards.forEach(card => {
     cardsContainer.append(createCard(card.name, card.link));
 })
 
-modalAddCard.addEventListener('submit', () => {
-    // evt.preventDefault();
+const submitCard = () => {
     const title = inputTitle.value;
     const url = inputUrl.value;
     cardsContainer.prepend(createCard(title, url));
     closePopUp(modalAddCard);
-})   
+} 
 
+modalAddCard.addEventListener('submit', submitCard);
 
-// enableValidattion({
-//     formSelector: '.form'
-// })
-
-// console.log(enableValidattion)
 
