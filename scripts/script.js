@@ -22,7 +22,17 @@ const cardTemplate = document.querySelector('#card-template').content;
 const cardsContainer = document.querySelector('.cards__container');
 
 const openPopUp = popup => {
-    popup.classList.add('modal_opened')
+    popup.classList.add('modal_opened');
+    document.addEventListener('keydown', evt => {
+        if(popup.classList.contains('modal_opened') && evt.key === 'Escape') {
+            closePopUp(popup);
+        }
+    })
+    popup.addEventListener('click', (evt) => {
+        if(evt.target === popup) {
+            closePopUp(popup);
+        }
+    })
 }
 
 const openEditProfile = () => {

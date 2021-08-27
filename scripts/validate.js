@@ -4,7 +4,7 @@ const setEventListeners = (formElement, settings) => {
     const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
     inputList.forEach( inputElement => {
         inputElement.addEventListener('input', () => {
-            checkInputValidity(formElement, inputElement)        
+            // checkInputValidity(formElement, inputElement)        
         })
     })
 }

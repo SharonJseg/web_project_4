@@ -44,39 +44,39 @@
             <div class="modal__container">
                 <button type="button" aria-label="Close button" class="modal__close-btn">
                 </button>
-                <form action="/" name="profile" method="get" class="form">
+                <form action="/" name="profile" method="get" class="form" novalidate>
                     <fieldset class="form__fieldset">
                         <legend>
                             <h2 class="form__heading">Edit Profile</h2>
                         </legend>
                         <input type="text" name="name" id="name" placeholder="Name"
-                            class="form__text-input form__text-input_type_name">
+                            class="form__text-input form__text-input_type_name" minlength="2" maxlength="40" required>
+                        <span class="form__validation-error form__validation-error_type_name"></span>
                         <input type="text" name="job" id="job" placeholder="Job"
-                            class="form__text-input form__text-input_type_job">
+                            class="form__text-input form__text-input_type_job" minlength="2" maxlength="200" required>
+                        <span class="form__validation-error form__validation-error_type_job"></span>
                         <button class="form__submit-btn">Save</button>
                     </fieldset>
                 </form>
             </div>
         </div>
 
-        <div class="modal modal_type_add-element modal_opened">
+        <div class="modal modal_type_add-element">
             <div class="modal__container">
                 <button type="button" aria-label="Close button" class="modal__close-btn">
                 </button>
-                <form action="/" name="add-card" method="" class="form">
+                <form action="/" name="add-card" method="" class="form" novalidate>
                     <fieldset class="form__fieldset">
                         <legend>
                             <h2 class="form__heading">New Place</h2>
                         </legend>
                         <input type="text" name="title" id="title" placeholder="Title"
-                            class="form__text-input form__text-input_type_title">
-                        <span class="form__validation-error form__validation-error_type_title">Please fill out this
-                            field.</span>
+                            class="form__text-input form__text-input_type_title" minlength="1" maxlength="30" required>
+                        <span class="form__validation-error form__validation-error_type_title"></span>
                         <input type="url" name="url" id="url" placeholder="Image link"
-                            class="form__text-input form__text-input_type_url form__text-input_error">
-                        <span class="form__validation-error form__validation-error_type_url">Please enter a web
-                            address.</span>
-                        <button class="form__submit-btn form__submit-btn_disabled">Save</button>
+                            class="form__text-input form__text-input_type_url" required>
+                        <span class="form__validation-error form__validation-error_type_url"></span>
+                        <button class="form__submit-btn">Save</button>
                     </fieldset>
                 </form>
             </div>
