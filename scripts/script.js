@@ -36,10 +36,13 @@ const cardsContainer = document.querySelector('.cards__container');
 // }
 
 const popUpHandler = evt => {
-    if(evt.key === 's') {
-        console.log(evt.key)
-        closePopUp(evt.target); //work from here
-    }
+    const modalList = Array.from(document.querySelectorAll('.modal'));
+    modalList.forEach(modalElement => {
+        if(evt.key === 'Escape' && modalElement.classList.contains('modal_opened')) {
+            closePopUp(modalElement); 
+        }
+    })
+   
     if(evt.target === evt.currentTarget) {
       closePopUp(evt.currentTarget);
     }
