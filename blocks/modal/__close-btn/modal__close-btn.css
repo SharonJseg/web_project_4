@@ -19,6 +19,13 @@
   opacity: 0.6;
 }
 
+@media screen and (max-width: 510px) {
+  .modal__close-btn {
+    top: -50px;
+    right: -10px;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .modal__close-btn {
     height: 26px;

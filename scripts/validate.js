@@ -76,14 +76,14 @@ enableValidation({
 
 export const resetValidation = (popup) => {
     const buttonElement = popup.querySelector('.form__submit-btn');
-    const ValidationList = popup.querySelectorAll('.form__validation-error');
+    const validationList = popup.querySelectorAll('.form__validation-error');
     const inputList = popup.querySelectorAll('.form__text-input')
     
     if (buttonElement) {
         buttonElement.classList.add('form__submit-btn_disabled');
     }
     
-    ValidationList.forEach( validationElement => {
+    validationList.forEach( validationElement => {
         validationElement.textContent = '';
     })
     

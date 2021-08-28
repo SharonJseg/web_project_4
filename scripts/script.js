@@ -21,22 +21,43 @@ const profileJob = document.querySelector('.profile__job');
 const cardTemplate = document.querySelector('#card-template').content;
 const cardsContainer = document.querySelector('.cards__container');
 
-const openPopUp = popup => {
-    popup.classList.add('modal_opened');
-    popUpHandler(popup)
+
+// const popUpHandler = popup => {
+//     document.addEventListener('keydown', evt => {
+//         if(popup.classList.contains('modal_opened') && evt.key === 'Escape') {
+//             closePopUp(popup);
+//         }
+//     })
+//     popup.addEventListener('click', (evt) => {
+//         if(evt.target === popup) {
+//             closePopUp(popup);
+//         }
+//     })
+// }
+
+const popUpHandler = evt => {
+    if(evt.key === 's') {
+        console.log(evt.key)
+        closePopUp(evt.target); //work from here
+    }
+    if(evt.target === evt.currentTarget) {
+      closePopUp(evt.currentTarget);
+    }
 }
 
-const popUpHandler = popup => {
-    document.addEventListener('keydown', evt => {
-        if(popup.classList.contains('modal_opened') && evt.key === 'Escape') {
-            closePopUp(popup);
-        }
-    })
-    popup.addEventListener('click', (evt) => {
-        if(evt.target === popup) {
-            closePopUp(popup);
-        }
-    })
+const openPopUp = popup => {
+    popup.classList.add('modal_opened');
+
+    document.addEventListener('keydown', popUpHandler)
+    popup.addEventListener('click', popUpHandler)
+
+    // document.addEventListener('keydown', evt => {
+    //     popUpHandler(evt, popup)
+    // })
+
+    // popup.addEventListener('click', evt => {
+    //     popUpHandler(evt, popup)
+    // })
 }
 
 const openEditProfile = () => {
@@ -52,6 +73,8 @@ const openAddCardPopup = () => {
 }
 
 const closePopUp = popup => {
+    document.removeEventListener('keydown', popUpHandler)
+    popup.removeEventListener('click', popUpHandler)
     popup.classList.remove('modal_opened');
     resetValidation(popup) 
 }
