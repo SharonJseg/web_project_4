@@ -24,7 +24,7 @@ const cardsContainer = document.querySelector('.cards__container');
 const popUpHandler = evt => {
     const modalList = Array.from(document.querySelectorAll('.modal'));
     modalList.forEach(modalElement => {
-        if(evt.key === 's' && modalElement.classList.contains('modal_opened')) {
+        if(evt.key === 'Escape' && modalElement.classList.contains('modal_opened')) {
             closePopUp(modalElement); 
         }
     })
