@@ -1,4 +1,4 @@
-import resetValidation from "./validate.js"
+import {resetValidation, settings} from "./validate.js"
 import initialCards from "./initialCards.js";
 
 const modalEditForm = document.querySelector('.modal_type_edit-profile');
@@ -21,28 +21,14 @@ const profileJob = document.querySelector('.profile__job');
 const cardTemplate = document.querySelector('#card-template').content;
 const cardsContainer = document.querySelector('.cards__container');
 
-
-// const popUpHandler = popup => {
-//     document.addEventListener('keydown', evt => {
-//         if(popup.classList.contains('modal_opened') && evt.key === 'Escape') {
-//             closePopUp(popup);
-//         }
-//     })
-//     popup.addEventListener('click', (evt) => {
-//         if(evt.target === popup) {
-//             closePopUp(popup);
-//         }
-//     })
-// }
-
 const popUpHandler = evt => {
     const modalList = Array.from(document.querySelectorAll('.modal'));
     modalList.forEach(modalElement => {
-        if(evt.key === 'Escape' && modalElement.classList.contains('modal_opened')) {
+        if(evt.key === 's' && modalElement.classList.contains('modal_opened')) {
             closePopUp(modalElement); 
         }
     })
-   
+  
     if(evt.target === evt.currentTarget) {
       closePopUp(evt.currentTarget);
     }
@@ -50,17 +36,8 @@ const popUpHandler = evt => {
 
 const openPopUp = popup => {
     popup.classList.add('modal_opened');
-
     document.addEventListener('keydown', popUpHandler)
     popup.addEventListener('click', popUpHandler)
-
-    // document.addEventListener('keydown', evt => {
-    //     popUpHandler(evt, popup)
-    // })
-
-    // popup.addEventListener('click', evt => {
-    //     popUpHandler(evt, popup)
-    // })
 }
 
 const openEditProfile = () => {
@@ -75,11 +52,11 @@ const openAddCardPopup = () => {
     inputUrl.value = '';
 }
 
-const closePopUp = popup => {
+const closePopUp = (popup) => {
     document.removeEventListener('keydown', popUpHandler)
     popup.removeEventListener('click', popUpHandler)
     popup.classList.remove('modal_opened');
-    resetValidation(popup) 
+    resetValidation(popup, settings) 
 }
 
 const closeEditProfilePopup = () => {
@@ -90,7 +67,7 @@ const closeAddCardPopup = () => {
     closePopUp(modalAddCard);
 }
 
-const modalImagePopup = () => {
+const openModalImagePopup = () => {
     closePopUp(modalImage);
 }
 
@@ -108,7 +85,9 @@ const submitEditProfileForm = () => {
 modalEditForm.addEventListener('submit', submitEditProfileForm);
 
 const deleteCard = evt => {
-    evt.target.closest('.card__container').remove();
+    let deletedCard = evt.target.closest('.card__container');
+    deletedCard.remove();
+    deletedCard = null;
 }
 
 const likeCard = evt => {
@@ -125,9 +104,9 @@ const openImageGallery = evt => {
     modalImage.querySelector('.modal__title').textContent = targetName;
 }
 
-modalImage.querySelector('.modal__close-btn').addEventListener('click', modalImagePopup)
+modalImage.querySelector('.modal__close-btn').addEventListener('click', openModalImagePopup)
 
-const createCard = (title, url) => {
+const createCard = (card) => {
     const cardElement = cardTemplate.querySelector('.card__container').cloneNode(true);
     const cardImage = cardElement.querySelector('.card__image');
     const cardTitle = cardElement.querySelector('.card__name');
@@ -135,20 +114,20 @@ const createCard = (title, url) => {
     cardElement.querySelector('.card__like-button').addEventListener('click', likeCard)
     cardElement.querySelector('.card__image').addEventListener('click', openImageGallery)
 
-    cardTitle.textContent = title;
-    cardImage.setAttribute('src', url);
-    cardImage.setAttribute('alt', title);
+    cardTitle.textContent = card.name;
+    cardImage.setAttribute('src', card.link);
+    cardImage.setAttribute('alt', card.name);
     return cardElement;
 }
 
 initialCards.forEach(card => {
-    cardsContainer.append(createCard(card.name, card.link));
+    cardsContainer.append(createCard(card));
 })
 
 const submitCard = () => {
-    const title = inputTitle.value;
-    const url = inputUrl.value;
-    cardsContainer.prepend(createCard(title, url));
+    const link = inputUrl.value;
+    const name = inputTitle.value;
+    cardsContainer.prepend(createCard({name, link}));
     closePopUp(modalAddCard);
 } 
 
