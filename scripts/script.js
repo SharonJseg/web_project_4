@@ -21,23 +21,24 @@ const profileJob = document.querySelector('.profile__job');
 const cardTemplate = document.querySelector('#card-template').content;
 const cardsContainer = document.querySelector('.cards__container');
 
-const popUpHandler = evt => {
-    const modalList = Array.from(document.querySelectorAll('.modal'));
-    modalList.forEach(modalElement => {
-        if(evt.key === 'Escape' && modalElement.classList.contains('modal_opened')) {
-            closePopUp(modalElement); 
-        }
-    })
-  
+
+const closePopUpWithClickOnOverlay = evt => {
     if(evt.target === evt.currentTarget) {
-      closePopUp(evt.currentTarget);
+        closePopUp(evt.currentTarget);
+      }
+}
+
+const closePopUpWithKey = evt => {
+    const activeModal = document.querySelector('.modal_opened');
+    if(evt.key === 'Escape') {
+        closePopUp(activeModal);
     }
 }
 
 const openPopUp = popup => {
     popup.classList.add('modal_opened');
-    document.addEventListener('keydown', popUpHandler)
-    popup.addEventListener('click', popUpHandler)
+    document.addEventListener('keydown', closePopUpWithKey)
+    popup.addEventListener('click', closePopUpWithClickOnOverlay)
 }
 
 const openEditProfile = () => {
@@ -52,9 +53,9 @@ const openAddCardPopup = () => {
     inputUrl.value = '';
 }
 
-const closePopUp = (popup) => {
-    document.removeEventListener('keydown', popUpHandler)
-    popup.removeEventListener('click', popUpHandler)
+const closePopUp = popup => {
+    document.removeEventListener('keydown', closePopUpWithKey)
+    popup.removeEventListener('click', closePopUpWithClickOnOverlay)
     popup.classList.remove('modal_opened');
     resetValidation(popup, settings) 
 }
