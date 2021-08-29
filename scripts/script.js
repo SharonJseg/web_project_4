@@ -29,8 +29,8 @@ const closePopUpWithClickOnOverlay = evt => {
 }
 
 const closePopUpWithKey = evt => {
-    const activeModal = document.querySelector('.modal_opened');
     if(evt.key === 'Escape') {
+        const activeModal = document.querySelector('.modal_opened');
         closePopUp(activeModal);
     }
 }
