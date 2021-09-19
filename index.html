@@ -50,10 +50,12 @@
                             <h2 class="form__heading">Edit Profile</h2>
                         </legend>
                         <input type="text" name="name" id="name" placeholder="Name"
-                            class="form__text-input form__text-input_type_name" minlength="2" maxlength="40" required>
+                            class="form__text-input form__text-input_type_name" minlength="2" maxlength="40" required
+                            pattern=".*\S.*">
                         <span class="form__validation-error form__validation-error_type_name"></span>
                         <input type="text" name="job" id="job" placeholder="Job"
-                            class="form__text-input form__text-input_type_job" minlength="2" maxlength="200" required>
+                            class="form__text-input form__text-input_type_job" minlength="2" maxlength="200" required
+                            pattern=".*\S.*">
                         <span class="form__validation-error form__validation-error_type_job"></span>
                         <button class="form__submit-btn">Save</button>
                     </fieldset>
@@ -65,13 +67,14 @@
             <div class="modal__container">
                 <button type="button" aria-label="Close button" class="modal__close-btn">
                 </button>
-                <form action="/" name="add-card" method="" class="form" novalidate>
+                <form action="/" name="add-card" class="form" novalidate>
                     <fieldset class="form__fieldset">
                         <legend>
                             <h2 class="form__heading">New Place</h2>
                         </legend>
                         <input type="text" name="title" id="title" placeholder="Title"
-                            class="form__text-input form__text-input_type_title" minlength="1" maxlength="30" required>
+                            class="form__text-input form__text-input_type_title" minlength="1" maxlength="30" required
+                            pattern=".*\S.*">
                         <span class="form__validation-error form__validation-error_type_title"></span>
                         <input type="url" name="url" id="url" placeholder="Image link"
                             class="form__text-input form__text-input_type_url" required>
@@ -107,8 +110,8 @@
         </li>
     </template>
 
-    <script type="module" src="./scripts/validate.js"></script>
-    <script type="module" src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js" type="module"></script>
+    <script src="./scripts/script.js" type="module"></script>
 </body>
 
 </html>
