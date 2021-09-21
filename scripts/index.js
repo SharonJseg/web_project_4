@@ -1,10 +1,12 @@
-import { settings, FormValidator } from "./FormValidator.js"
-import { Card } from "./Card.js";
-import initialCards from "./initialCards.js";
+import { openPopUp, closePopUp } from './utils.js';
+import { settings, FormValidator } from './FormValidator.js';
+import { Card } from './Card.js';
+import initialCards from './initialCards.js';
 
+const imageForm = document.querySelector('#image-form');
 const modalEditForm = document.querySelector('.modal_type_edit-profile');
 const modalAddCard = document.querySelector('.modal_type_add-element');
-const modalImage = document.querySelector('.modal_type_image');
+export const modalImage = document.querySelector('.modal_type_image');
 
 const editProfileBtn = document.querySelector('.profile__edit-btn');
 const closeProfileBtn = modalEditForm.querySelector('.modal__close-btn');
@@ -18,93 +20,65 @@ const inputUrl = modalAddCard.querySelector('.form__text-input_type_url');
 
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
+const cardTemplate = document.querySelector('#card-template').content;
 const cardsContainer = document.querySelector('.cards__container');
 
+const profileFormValidator = new FormValidator(settings, modalEditForm);
+export const cardFormValidator = new FormValidator(settings, modalAddCard);
 
-const profileForm = new FormValidator(settings, modalEditForm);
-const cardForm = new FormValidator(settings, modalAddCard);
-
-profileForm.enableValidation(settings)
-cardForm.enableValidation(settings)
-
-
-const closePopUpWithClickOnOverlay = evt => {
-    if (evt.target === evt.currentTarget) {
-        closePopUp(evt.currentTarget);
-    }
-}
-
-const closePopUpWithKey = evt => {
-    if (evt.key === 'Escape') {
-        const activeModal = document.querySelector('.modal_opened');
-        closePopUp(activeModal);
-    }
-}
-
-const openPopUp = popup => {
-    popup.classList.add('modal_opened');
-    document.addEventListener('keydown', closePopUpWithKey)
-    popup.addEventListener('click', closePopUpWithClickOnOverlay)
-}
+profileFormValidator.enableValidation(settings);
+cardFormValidator.enableValidation(settings);
 
 const openEditProfile = () => {
-    openPopUp(modalEditForm)
-    inputName.value = profileName.textContent;
-    inputJob.value = profileJob.textContent;
-}
+  openPopUp(modalEditForm);
+  inputName.value = profileName.textContent;
+  inputJob.value = profileJob.textContent;
+};
 
 const openAddCardPopup = () => {
-    openPopUp(modalAddCard)
-    inputTitle.value = '';
-    inputUrl.value = '';
-}
-
-const closePopUp = popup => {
-    document.removeEventListener('keydown', closePopUpWithKey)
-    popup.removeEventListener('click', closePopUpWithClickOnOverlay)
-    popup.classList.remove('modal_opened');
-    cardForm._resetValidation(popup, settings)
-}
+  openPopUp(modalAddCard);
+  imageForm.reset();
+};
 
 const closeEditProfilePopup = () => {
-    closePopUp(modalEditForm);
-}
+  closePopUp(modalEditForm);
+};
 
 const closeAddCardPopup = () => {
-    closePopUp(modalAddCard);
-}
+  closePopUp(modalAddCard);
+};
 
-const closeModalImagePopup = () => {
-    closePopUp(modalImage);
-}
+const closeImagePopup = () => {
+  closePopUp(modalImage);
+};
 
 const submitEditProfileForm = () => {
-    profileName.textContent = inputName.value;
-    profileJob.textContent = inputJob.value;
-    closeEditProfilePopup();
-}
+  profileName.textContent = inputName.value;
+  profileJob.textContent = inputJob.value;
+  closeEditProfilePopup();
+};
 
 editProfileBtn.addEventListener('click', openEditProfile);
 addCardBtn.addEventListener('click', openAddCardPopup);
 closeProfileBtn.addEventListener('click', closeEditProfilePopup);
 closeAddCardModalBtn.addEventListener('click', closeAddCardPopup);
 modalEditForm.addEventListener('submit', submitEditProfileForm);
-modalImage.querySelector('.modal__close-btn').addEventListener('click', closeModalImagePopup)
+modalImage
+  .querySelector('.modal__close-btn')
+  .addEventListener('click', closeImagePopup);
 
-initialCards.forEach(card => {
-    const cardInstance = new Card(card, '#card-template');
-    const cardElement = cardInstance.createCard();
-    cardsContainer.append(cardElement);
-})
+initialCards.forEach((card) => {
+  const cardInstance = new Card(card, cardTemplate);
+  const cardElement = cardInstance.createCard();
+  cardsContainer.append(cardElement);
+});
 
 const submitCard = () => {
-    const link = inputUrl.value;
-    const name = inputTitle.value;
-    const cardInstance = new Card({ link, name }, '#card-template');
-    cardsContainer.prepend(cardInstance.createCard({ name, link }));
-    closePopUp(modalAddCard);
-}
+  const link = inputUrl.value;
+  const name = inputTitle.value;
+  const cardInstance = new Card({ link, name }, cardTemplate);
+  cardsContainer.prepend(cardInstance.createCard({ name, link }));
+  closePopUp(modalAddCard);
+};
 
 modalAddCard.addEventListener('submit', submitCard);
-
-

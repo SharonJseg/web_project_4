@@ -1,52 +1,61 @@
+import { openPopUp, modalImage } from './utils.js';
 class Card {
-    constructor(data, template) {
-        this._text = data.name;
-        this._image = data.link;
-        this._template = template;
-    }
+  constructor(data, template) {
+    this._text = data.name;
+    this._image = data.link;
+    this._template = template;
+  }
 
-    _getTemplate() {
-        const cardElement = document.querySelector(this._template)
-            .content.querySelector('.card__container').cloneNode(true);
-        return cardElement;
-    }
+  _getTemplate() {
+    const cardElement = this._template
+      .querySelector('.card__container')
+      .cloneNode(true);
+    return cardElement;
+  }
 
-    _setEventListeners() {
-        this._cardElement.querySelector('.card__delete-button').addEventListener('click', this._deleteCard);
-        this._cardElement.querySelector('.card__like-button').addEventListener('click', this._likeCard);
-        this._cardElement.querySelector('.card__image').addEventListener('click', this._openImageGallery);
-    }
+  _setEventListeners(cardElement) {
+    cardElement
+      .querySelector('.card__delete-button')
+      .addEventListener('click', this._deleteCard);
+    cardElement
+      .querySelector('.card__like-button')
+      .addEventListener('click', this._likeCard);
+    cardElement
+      .querySelector('.card__image')
+      .addEventListener('click', this._openImageGallery);
+  }
 
-    createCard() {
-        this._cardElement = this._getTemplate()
+  createCard() {
+    const cardElement = this._getTemplate();
+    cardElement.querySelector('.card__image').src = this._image;
+    cardElement.querySelector('.card__image').setAttribute('alt', this._text);
+    cardElement.querySelector('.card__name').textContent = this._text;
+    this._setEventListeners(cardElement);
+    return cardElement;
+  }
 
-        this._cardElement.querySelector('.card__image').src = this._image;
-        this._cardElement.querySelector('.card__image').setAttribute('alt', this._text)
-        this._cardElement.querySelector('.card__name').textContent = this._text;
+  _deleteCard(evt) {
+    let cardToDelete = evt.target.closest('.card__container');
+    cardToDelete.remove();
+    cardToDelete = null;
+  }
 
-        this._setEventListeners(this._cardElement);
-        return this._cardElement;
-    }
+  _likeCard(evt) {
+    evt.target.classList.toggle('card__like-button_active');
+  }
 
-    _deleteCard(evt) {
-        let deletedCard = evt.target.closest('.card__container');
-        deletedCard.remove();
-        deletedCard = null;
-    }
-
-    _likeCard(evt) {
-        evt.target.classList.toggle('card__like-button_active');
-    }
-
-    _openImageGallery(evt) {
-        openPopUp(modalImage);
-        const modalLargeImage = modalImage.querySelector('.modal__image');
-        const targetSrc = evt.target.parentElement.querySelector('.card__image').getAttribute('src');
-        const targetName = evt.target.parentElement.querySelector('.card__name').textContent;
-        modalLargeImage.setAttribute('src', targetSrc);
-        modalLargeImage.setAttribute('alt', targetName);
-        modalImage.querySelector('.modal__title').textContent = targetName;
-    }
+  _openImageGallery(evt) {
+    openPopUp(modalImage);
+    const modalLargeImage = modalImage.querySelector('.modal__image');
+    const targetSrc = evt.target.parentElement
+      .querySelector('.card__image')
+      .getAttribute('src');
+    const targetName =
+      evt.target.parentElement.querySelector('.card__name').textContent;
+    modalLargeImage.setAttribute('src', targetSrc);
+    modalLargeImage.setAttribute('alt', targetName);
+    modalImage.querySelector('.modal__title').textContent = targetName;
+  }
 }
 
 export { Card };
