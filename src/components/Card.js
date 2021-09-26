@@ -1,5 +1,6 @@
-import { openPopUp, modalImage } from './utils.js';
-class Card {
+import { openPopUp, modalImage } from '../utils/utils.js';
+
+export default class Card {
   constructor(data, template) {
     this._text = data.name;
     this._image = data.link;
@@ -57,5 +58,3 @@ class Card {
     modalImage.querySelector('.modal__title').textContent = targetName;
   }
 }
-
-export { Card };

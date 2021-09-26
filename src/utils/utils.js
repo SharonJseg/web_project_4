@@ -1,5 +1,6 @@
-import { cardFormValidator, modalImage } from './index.js';
-import { settings } from './FormValidator.js';
+import { cardFormValidator } from '../pages/index.js';
+import { modalImage } from './constants.js';
+import { settings } from '../components/FormValidator.js';
 
 const openPopUp = (popup) => {
   popup.classList.add('modal_opened');

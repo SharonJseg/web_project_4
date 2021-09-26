@@ -5,7 +5,11 @@ class FormValidator {
   }
 
   _showInputError(fieldset, inputElement, errorMesssage) {
-    const { validationErrorTypeSelector, inputErrorClass, activeValidationErrorClass } = this._settings;
+    const {
+      validationErrorTypeSelector,
+      inputErrorClass,
+      activeValidationErrorClass,
+    } = this._settings;
     const errorElement = fieldset.querySelector(
       `${validationErrorTypeSelector}${inputElement.id}`
     );
@@ -75,7 +79,9 @@ class FormValidator {
       evt.preventDefault();
     });
 
-    const fieldsetList = [...this._formElement.querySelectorAll(fieldSetSelector)];
+    const fieldsetList = [
+      ...this._formElement.querySelectorAll(fieldSetSelector),
+    ];
     fieldsetList.forEach((fieldset) => {
       this._setEventListeners(fieldset, this._settings);
     });
@@ -100,7 +106,6 @@ class FormValidator {
       this._hideInputError(form, inputElement, this._settings);
     });
   }
-
 }
 
 const settings = {
@@ -115,5 +120,3 @@ const settings = {
 };
 
 export { settings, FormValidator };
-
-
