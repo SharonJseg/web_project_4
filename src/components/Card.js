@@ -1,9 +1,10 @@
 import { openPopUp, modalImage } from '../utils/utils.js';
+import { openImagePopup } from '../pages/index.js';
 
 export default class Card {
   constructor(data, template) {
-    this._text = data.name;
-    this._image = data.link;
+    this._text = data.text;
+    this._image = data.image;
     this._template = template;
   }
 
@@ -46,15 +47,6 @@ export default class Card {
   }
 
   _openImageGallery(evt) {
-    openPopUp(modalImage);
-    const modalLargeImage = modalImage.querySelector('.modal__image');
-    const targetSrc = evt.target.parentElement
-      .querySelector('.card__image')
-      .getAttribute('src');
-    const targetName =
-      evt.target.parentElement.querySelector('.card__name').textContent;
-    modalLargeImage.setAttribute('src', targetSrc);
-    modalLargeImage.setAttribute('alt', targetName);
-    modalImage.querySelector('.modal__title').textContent = targetName;
+    openImagePopup.open(evt);
   }
 }

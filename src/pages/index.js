@@ -2,6 +2,9 @@ import { openPopUp, closePopUp } from '../utils/utils.js';
 import { settings, FormValidator } from '../components/FormValidator.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+
 import {
   initialCards,
   modalEditForm,
@@ -14,6 +17,23 @@ import {
   cardTemplate,
   cardsContainer,
 } from '../utils/constants.js';
+
+export const openImagePopup = new PopupWithImage(modalImage);
+
+const openProfileForm = new PopupWithForm({
+  popup: modalEditForm,
+  handleSubmitForm: (formData) => {
+    // console.log(formData);
+  },
+});
+
+addCardBtn.addEventListener('click', () => {
+  openAddCardForm.open();
+});
+
+editProfileBtn.addEventListener('click', () => {
+  openProfileForm.open();
+});
 
 const cardList = new Section(
   {
@@ -28,6 +48,20 @@ const cardList = new Section(
 );
 
 cardList.renderer();
+
+const openAddCardForm = new PopupWithForm({
+  popup: modalAddCard,
+  handleSubmitForm: (formData) => {
+    console.log(formData);
+    const cardInstance = new Card(
+      { text: formData.title, image: formData.url },
+      cardTemplate
+    );
+    const cardElement = cardInstance.createCard();
+    console.log('cardelement:', cardInstance);
+    cardList.prependItem(cardElement);
+  },
+});
 
 const profileFormValidator = new FormValidator(settings, modalEditForm);
 export const cardFormValidator = new FormValidator(settings, modalAddCard);
@@ -63,22 +97,3 @@ const submitEditProfileForm = () => {
   profileJob.textContent = inputJob.value;
   closeEditProfilePopup();
 };
-
-editProfileBtn.addEventListener('click', openEditProfile);
-addCardBtn.addEventListener('click', openAddCardPopup);
-closeProfileBtn.addEventListener('click', closeEditProfilePopup);
-closeAddCardModalBtn.addEventListener('click', closeAddCardPopup);
-modalEditForm.addEventListener('submit', submitEditProfileForm);
-modalImage
-  .querySelector('.modal__close-btn')
-  .addEventListener('click', closeImagePopup);
-
-const submitCard = () => {
-  const link = inputUrl.value;
-  const name = inputTitle.value;
-  const cardInstance = new Card({ link, name }, cardTemplate);
-  cardsContainer.prepend(cardInstance.createCard({ name, link }));
-  closePopUp(modalAddCard);
-};
-
-modalAddCard.addEventListener('submit', submitCard);
