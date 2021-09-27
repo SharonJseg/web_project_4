@@ -1,4 +1,5 @@
 import { togglePopupClass, closePopupButton } from '../utils/constants.js';
+import { inputName, inputJob } from '../utils/constants.js';
 
 export default class Popup {
   constructor(popup) {
@@ -17,7 +18,7 @@ export default class Popup {
 
   _handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
-      this.close(this._popup);
+      this.close();
     }
   };
 

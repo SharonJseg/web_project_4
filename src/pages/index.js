@@ -11,6 +11,8 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import { settings, FormValidator } from '../components/FormValidator.js';
 
 import {
   initialCards,
@@ -23,11 +25,15 @@ import {
   cardsContainer,
   profileName,
   profileJob,
+  inputName,
+  inputJob,
 } from '../utils/constants.js';
-import UserInfo from '../components/UserInfo.js';
 
 export const openImagePopup = new PopupWithImage(modalImage);
 export const user = new UserInfo(profileName, profileJob);
+
+const editFormValidator = new FormValidator(settings, modalEditForm);
+const cardFormValidator = new FormValidator(settings, modalAddCard);
 
 const openProfileForm = new PopupWithForm({
   popup: modalEditForm,
@@ -38,30 +44,38 @@ const openProfileForm = new PopupWithForm({
 
 const openAddCardForm = new PopupWithForm({
   popup: modalAddCard,
-  handleSubmitForm: (formData) => {
-    const cardInstance = new Card(
-      { text: formData.title, image: formData.url },
-      cardTemplate
-    );
+  handleSubmitForm: (data) => {
+    const cardInstance = new Card(data, cardTemplate, {
+      handleCardClick: (evt) => openImagePopup.open(evt),
+    });
     const cardElement = cardInstance.createCard();
     cardList.prependItem(cardElement);
   },
 });
 
 addCardBtn.addEventListener('click', () => {
+  cardFormValidator.enableValidation();
+  cardFormValidator.resetValidation();
   openAddCardForm.open({});
 });
 
 editProfileBtn.addEventListener('click', () => {
-  const { name, job } = user.getUserInfo();
-  openProfileForm.open({ name, job });
+  editFormValidator.enableValidation();
+  editFormValidator.resetValidation();
+  const data = user.getUserInfo();
+  const { name, job } = data;
+  document.querySelector(inputName).value = name;
+  document.querySelector(inputJob).value = job;
+  openProfileForm.open();
 });
 
 const cardList = new Section(
   {
     items: initialCards,
-    renderer: (item) => {
-      const cardInstance = new Card(item, cardTemplate);
+    renderer: (data) => {
+      const cardInstance = new Card(data, cardTemplate, {
+        handleCardClick: (evt) => openImagePopup.open(evt),
+      });
       const cardElement = cardInstance.createCard();
       cardList.setItem(cardElement);
     },

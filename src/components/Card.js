@@ -1,10 +1,11 @@
 import { openImagePopup } from '../pages/index.js';
 
 export default class Card {
-  constructor(data, template) {
-    this._text = data.text;
-    this._image = data.image;
+  constructor(data, template, { handleCardClick }) {
+    this._text = data.title;
+    this._image = data.url;
     this._template = template;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -23,7 +24,7 @@ export default class Card {
       .addEventListener('click', this._likeCard);
     cardElement
       .querySelector('.card__image')
-      .addEventListener('click', this._openImageGallery);
+      .addEventListener('click', this._handleCardClick);
   }
 
   createCard() {
@@ -43,9 +44,5 @@ export default class Card {
 
   _likeCard(evt) {
     evt.target.classList.toggle('card__like-button_active');
-  }
-
-  _openImageGallery(evt) {
-    openImagePopup.open(evt);
   }
 }
