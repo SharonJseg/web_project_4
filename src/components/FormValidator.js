@@ -75,9 +75,6 @@ class FormValidator {
 
   enableValidation() {
     const { fieldSetSelector } = this._settings;
-    this._formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
 
     const fieldsetList = [
       ...this._formElement.querySelectorAll(fieldSetSelector),

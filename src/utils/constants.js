@@ -42,21 +42,17 @@ export const closeAddCardModalBtn =
   modalAddCard.querySelector('.modal__close-btn');
 export const addCardBtn = document.querySelector('.profile__add-element-btn');
 
-export const inputName = modalEditForm.querySelector(
-  '.form__text-input_type_name'
-);
-export const inputJob = modalEditForm.querySelector(
-  '.form__text-input_type_job'
-);
+export const inputName = '.form__text-input_type_name';
+export const inputJob = '.form__text-input_type_job';
+
 export const inputTitle = modalAddCard.querySelector(
   '.form__text-input_type_title'
 );
 export const inputUrl = modalAddCard.querySelector(
   '.form__text-input_type_url'
 );
-
-export const profileName = document.querySelector('.profile__name');
-export const profileJob = document.querySelector('.profile__job');
+export const profileName = '.profile__name';
+export const profileJob = '.profile__job';
 export const cardTemplate = document.querySelector('#card-template').content;
 export const cardsContainer = '.cards__container';
 export const togglePopupClass = 'modal_opened';

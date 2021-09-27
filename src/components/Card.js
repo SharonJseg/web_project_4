@@ -1,4 +1,3 @@
-import { openPopUp, modalImage } from '../utils/utils.js';
 import { openImagePopup } from '../pages/index.js';
 
 export default class Card {

@@ -1,10 +1,30 @@
 import Popup from './Popup.js';
+import { inputName, inputJob } from '../utils/constants.js';
+import { FormValidator, settings } from './FormValidator.js';
 
 export default class PopupWithForm extends Popup {
   constructor({ popup, handleSubmitForm }) {
     super(popup);
     this._popup = popup;
     this._handleSubmitForm = handleSubmitForm;
+    this._FormValidator = new FormValidator(settings, this._popup);
+  }
+
+  open(values) {
+    super.open();
+    this._FormValidator.enableValidation(settings);
+
+    if (values.name && values.job) {
+      const { name, job } = values;
+      document.querySelector(inputName).value = name;
+      document.querySelector(inputJob).value = job;
+    }
+  }
+
+  close() {
+    super.close();
+    this._FormValidator.resetValidation(this._popup);
+    this._popup.querySelector('form').reset();
   }
 
   removeEventListeners() {
@@ -22,8 +42,6 @@ export default class PopupWithForm extends Popup {
   handleSubmitForm = (evt) => {
     evt.preventDefault();
     const inputValues = this._handleSubmitForm(this._getInputValues());
-    console.log(inputValues);
-    evt.currentTarget.reset();
     this.close();
     return inputValues;
   };
