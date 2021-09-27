@@ -1,3 +1,12 @@
+import '../pages/index.css';
+import logoSrc from '../images/logo.svg';
+import profileImgSrc from '../images/profile_image.jpg';
+import addImgSrc from '../images/add.svg';
+
+document.querySelector('.logo').src = logoSrc;
+document.querySelector('.profile__image').src = profileImgSrc;
+document.querySelector('.add__icon').src = addImgSrc;
+
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
