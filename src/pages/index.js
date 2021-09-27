@@ -15,6 +15,7 @@ import UserInfo from '../components/UserInfo.js';
 import { settings, FormValidator } from '../components/FormValidator.js';
 
 import {
+  modal,
   initialCards,
   modalEditForm,
   modalAddCard,
@@ -32,8 +33,8 @@ import {
 export const openImagePopup = new PopupWithImage(modalImage);
 export const user = new UserInfo(profileName, profileJob);
 
-const editFormValidator = new FormValidator(settings, modalEditForm);
-const cardFormValidator = new FormValidator(settings, modalAddCard);
+const formValidator = new FormValidator(settings, modal);
+formValidator.enableValidation();
 
 const openProfileForm = new PopupWithForm({
   popup: modalEditForm,
@@ -52,21 +53,17 @@ const generateCardInstance = (data) => {
 const openAddCardForm = new PopupWithForm({
   popup: modalAddCard,
   handleSubmitForm: (data) => {
-    const cardInstance = generateCardInstance(data);
-    const cardElement = cardInstance.generateCard();
-    cardList.prependItem(cardElement);
+    cardList.prependItem(generateCardInstance(data).generateCard());
   },
 });
 
 addCardBtn.addEventListener('click', () => {
-  cardFormValidator.enableValidation();
-  cardFormValidator.resetValidation();
+  formValidator.resetValidation();
   openAddCardForm.open({});
 });
 
 editProfileBtn.addEventListener('click', () => {
-  editFormValidator.enableValidation();
-  editFormValidator.resetValidation();
+  formValidator.resetValidation();
   const data = user.getUserInfo();
   const { name, job } = data;
   document.querySelector(inputName).value = name;
@@ -78,9 +75,7 @@ const cardList = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      const cardInstance = generateCardInstance(data);
-      const cardElement = cardInstance.generateCard();
-      cardList.setItem(cardElement);
+      cardList.setItem(generateCardInstance(data).generateCard());
     },
   },
   cardsContainer

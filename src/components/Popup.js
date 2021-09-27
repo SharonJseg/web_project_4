@@ -1,6 +1,4 @@
 import { togglePopupClass, closePopupButton } from '../utils/constants.js';
-import { inputName, inputJob } from '../utils/constants.js';
-
 export default class Popup {
   constructor(popup) {
     this._popup = popup;
