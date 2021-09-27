@@ -1,5 +1,3 @@
-import { openImagePopup } from '../pages/index.js';
-
 export default class Card {
   constructor(data, template, { handleCardClick }) {
     this._text = data.title;
@@ -27,7 +25,7 @@ export default class Card {
       .addEventListener('click', this._handleCardClick);
   }
 
-  createCard() {
+  generateCard() {
     const cardElement = this._getTemplate();
     cardElement.querySelector('.card__image').src = this._image;
     cardElement.querySelector('.card__image').setAttribute('alt', this._text);

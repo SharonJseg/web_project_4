@@ -42,13 +42,18 @@ const openProfileForm = new PopupWithForm({
   },
 });
 
+const generateCardInstance = (data) => {
+  const cardInstance = new Card(data, cardTemplate, {
+    handleCardClick: (evt) => openImagePopup.open(evt),
+  });
+  return cardInstance;
+};
+
 const openAddCardForm = new PopupWithForm({
   popup: modalAddCard,
   handleSubmitForm: (data) => {
-    const cardInstance = new Card(data, cardTemplate, {
-      handleCardClick: (evt) => openImagePopup.open(evt),
-    });
-    const cardElement = cardInstance.createCard();
+    const cardInstance = generateCardInstance(data);
+    const cardElement = cardInstance.generateCard();
     cardList.prependItem(cardElement);
   },
 });
@@ -73,10 +78,8 @@ const cardList = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      const cardInstance = new Card(data, cardTemplate, {
-        handleCardClick: (evt) => openImagePopup.open(evt),
-      });
-      const cardElement = cardInstance.createCard();
+      const cardInstance = generateCardInstance(data);
+      const cardElement = cardInstance.generateCard();
       cardList.setItem(cardElement);
     },
   },
