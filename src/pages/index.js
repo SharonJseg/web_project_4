@@ -33,8 +33,11 @@ import {
 export const openImagePopup = new PopupWithImage(modalImage);
 export const user = new UserInfo(profileName, profileJob);
 
-const formValidator = new FormValidator(settings, modal);
-formValidator.enableValidation();
+const editFormValidator = new FormValidator(settings, modalEditForm);
+const cardFormValidator = new FormValidator(settings, modalAddCard);
+
+editFormValidator.enableValidation();
+cardFormValidator.enableValidation();
 
 const openProfileForm = new PopupWithForm({
   popup: modalEditForm,
@@ -58,12 +61,12 @@ const openAddCardForm = new PopupWithForm({
 });
 
 addCardBtn.addEventListener('click', () => {
-  formValidator.resetValidation();
+  cardFormValidator.resetValidation();
   openAddCardForm.open({});
 });
 
 editProfileBtn.addEventListener('click', () => {
-  formValidator.resetValidation();
+  editFormValidator.resetValidation();
   const data = user.getUserInfo();
   const { name, job } = data;
   document.querySelector(inputName).value = name;
