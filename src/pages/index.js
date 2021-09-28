@@ -62,7 +62,7 @@ const openAddCardForm = new PopupWithForm({
 
 addCardBtn.addEventListener('click', () => {
   cardFormValidator.resetValidation();
-  openAddCardForm.open({});
+  openAddCardForm.open();
 });
 
 editProfileBtn.addEventListener('click', () => {

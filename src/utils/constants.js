@@ -25,7 +25,6 @@ export const initialCards = [
   },
 ];
 
-export const modal = [...document.querySelectorAll('.form')];
 export const imageForm = document.querySelector('#image-form');
 export const modalEditForm = document.querySelector('.modal_type_edit-profile');
 export const modalAddCard = document.querySelector('.modal_type_add-element');

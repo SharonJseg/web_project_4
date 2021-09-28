@@ -55,18 +55,6 @@ class FormValidator {
     }
   }
 
-  // _setEventListeners(form) {
-  //   const { inputSelector, submitButtonSelector } = this._settings;
-  //   const inputList = [...form.querySelectorAll(inputSelector)];
-  //   const buttonElement = form.querySelector(submitButtonSelector);
-  //   this._toggleButtonState(inputList, buttonElement);
-  //   inputList.forEach((inputElement) => {
-  //     inputElement.addEventListener('input', () => {
-  //       this._checkInputValidity(inputElement);
-  //       this._toggleButtonState(inputList, buttonElement);
-  //     });
-  //   });
-  // }
   _setEventListeners() {
     const { inputSelector, submitButtonSelector } = this._settings;
     const inputList = [...this._formElement.querySelectorAll(inputSelector)];
