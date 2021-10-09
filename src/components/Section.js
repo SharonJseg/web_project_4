@@ -6,7 +6,12 @@ export default class Section {
   }
 
   renderer() {
-    this._renderedItems.forEach((item) => this._renderer(item));
+    Promise.resolve(this._renderedItems).then((data) => {
+      data.forEach((item) => this._renderer(item));
+    });
+    // console.log(this._renderedItems);
+    // console.log(this._renderedItems);
+    // this._renderedItems.forEach((item) => this._renderer(item));
   }
 
   setItem(element) {

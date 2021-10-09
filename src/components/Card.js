@@ -1,7 +1,7 @@
 export default class Card {
   constructor(data, template, { handleCardClick }) {
-    this._text = data.title;
-    this._image = data.url;
+    this._text = data.name;
+    this._image = data.link;
     this._template = template;
     this._handleCardClick = handleCardClick;
   }
@@ -25,10 +25,18 @@ export default class Card {
       .addEventListener('click', this._handleCardClick);
   }
 
+  _setAttributes(cardElement, attribs) {
+    for (const key in attribs) {
+      cardElement.setAttribute(key, attribs[key]);
+    }
+  }
+
   generateCard() {
     const cardElement = this._getTemplate();
-    cardElement.querySelector('.card__image').src = this._image;
-    cardElement.querySelector('.card__image').setAttribute('alt', this._text);
+    this._setAttributes(cardElement.querySelector('.card__image'), {
+      src: this._image,
+      alt: this._text,
+    });
     cardElement.querySelector('.card__name').textContent = this._text;
     this._setEventListeners(cardElement);
     return cardElement;

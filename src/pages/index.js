@@ -12,6 +12,7 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import API from '../components/API';
 import { settings, FormValidator } from '../components/FormValidator.js';
 
 import {
@@ -29,6 +30,17 @@ import {
   inputName,
   inputJob,
 } from '../utils/constants.js';
+
+const api = new API({
+  address: 'https://around.nomoreparties.co/v1/',
+  groupId: 'group-12',
+  token: '9dab4619-413b-4914-b4f4-ee6c3c0ed983',
+});
+
+// api.getInitialCards();
+// api.updateUserInfo();
+// api.updateUserImage()
+api.getUserInfo();
 
 export const openImagePopup = new PopupWithImage(modalImage);
 export const user = new UserInfo(profileName, profileJob);
@@ -67,8 +79,7 @@ addCardBtn.addEventListener('click', () => {
 
 editProfileBtn.addEventListener('click', () => {
   editFormValidator.resetValidation();
-  const data = user.getUserInfo();
-  const { name, job } = data;
+  const { name, job } = user.getUserInfo();
   document.querySelector(inputName).value = name;
   document.querySelector(inputJob).value = job;
   openProfileForm.open();
@@ -76,8 +87,9 @@ editProfileBtn.addEventListener('click', () => {
 
 const cardList = new Section(
   {
-    items: initialCards,
+    items: api.getInitialCards(),
     renderer: (data) => {
+      console.log(data);
       cardList.setItem(generateCardInstance(data).generateCard());
     },
   },
