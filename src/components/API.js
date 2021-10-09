@@ -1,8 +1,12 @@
+import { user } from '../pages';
+
 export default class API {
   constructor({ address, token, groupId }) {
     this._address = address;
     this._groupId = groupId;
     this._token = token;
+    this._name = document.querySelector('.profile__name');
+    this._job = document.querySelector('.profile__job');
   }
 
   getInitialCards() {
@@ -26,12 +30,20 @@ export default class API {
       },
     })
       .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Error type: ${res.status}`)
+        res.ok ? res.json() : Promise.reject(`${res.status}: ${res.statusText}`)
       )
-      .then((result) => console.log(result));
+      .then((userinfo) => {
+        const { name, about } = userinfo;
+        this._name.textContent = name;
+        this._job.textContent = about;
+      })
+      .finally(() => {
+        this.getUserInfo();
+      });
   }
 
-  updateUserInfo() {
+  updateUserInfo(userInfo) {
+    const { name, job } = userInfo;
     return fetch(`${this._address}${this._groupId}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -39,8 +51,8 @@ export default class API {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        name: 'Marie Skłodowska Curie',
-        about: 'Physicist and Chemist',
+        name: name,
+        about: job,
       }),
     });
   }

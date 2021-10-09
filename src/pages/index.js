@@ -37,9 +37,6 @@ const api = new API({
   token: '9dab4619-413b-4914-b4f4-ee6c3c0ed983',
 });
 
-// api.getInitialCards();
-// api.updateUserInfo();
-// api.updateUserImage()
 api.getUserInfo();
 
 export const openImagePopup = new PopupWithImage(modalImage);
@@ -54,7 +51,7 @@ cardFormValidator.enableValidation();
 const openProfileForm = new PopupWithForm({
   popup: modalEditForm,
   handleSubmitForm: (userInfo) => {
-    user.setUserInfo(userInfo);
+    api.updateUserInfo(userInfo);
   },
 });
 
@@ -89,7 +86,6 @@ const cardList = new Section(
   {
     items: api.getInitialCards(),
     renderer: (data) => {
-      console.log(data);
       cardList.setItem(generateCardInstance(data).generateCard());
     },
   },
