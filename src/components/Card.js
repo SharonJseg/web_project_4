@@ -35,38 +35,17 @@ export default class Card {
     }
   }
 
-  getCurrentUserId() {
-    this._currentUserId = this._userId;
-    console.log(this._currentUserId);
-    return this._currentUserId;
-  }
-
   generateCard() {
     const cardElement = this._getTemplate();
-    const current = this._currentUserId;
     this._setAttributes(cardElement.querySelector('.card__image'), {
       src: this._image,
       alt: this._text,
     });
-    if (this._likes.length) {
-      cardElement.querySelector('.card__likes').textContent =
-        this._likes.length;
-    }
-
-    console.log(
-      'user id: ',
-      this._userId,
-      'image id: ',
-      this._imageId,
-      'owner name: ',
-      this._owner
-    );
-    if (this._userId) {
-      cardElement.querySelector('.card__delete-button').style.display = 'none';
-    } else {
-    }
+    cardElement.querySelector('.card__likes').textContent = this._likes.length;
+    // if () {
+    //   cardElement.querySelector('.card__delete-button').style.display = 'none';
+    // }
     cardElement.querySelector('.card__name').textContent = this._text;
-
     this._setEventListeners(cardElement);
     return cardElement;
   }

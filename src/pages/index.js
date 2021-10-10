@@ -12,53 +12,67 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import API from '../components/API';
+import api from '../components/API';
 import { settings, FormValidator } from '../components/FormValidator.js';
 
 import {
   modalEditForm,
   modalAddCard,
+  modalEditImage,
   editProfileBtn,
+  editProfileImageBtn,
   addCardBtn,
   modalImage,
   cardTemplate,
   cardsContainer,
   profileName,
   profileJob,
+  profileImage,
   inputName,
   inputJob,
-  modalEditImage,
 } from '../utils/constants.js';
 
-const api = new API({
-  address: 'https://around.nomoreparties.co/v1/',
-  groupId: 'group-12',
-  token: '9dab4619-413b-4914-b4f4-ee6c3c0ed983',
-});
-
-api.getUserInfo();
-
 export const openImagePopup = new PopupWithImage(modalImage);
-export const user = new UserInfo(profileName, profileJob);
+export const user = new UserInfo(profileName, profileJob, profileImage);
 
 const editFormValidator = new FormValidator(settings, modalEditForm);
+const editImageFormValidator = new FormValidator(settings, modalEditImage);
 const cardFormValidator = new FormValidator(settings, modalAddCard);
 
 editFormValidator.enableValidation();
+editImageFormValidator.enableValidation();
 cardFormValidator.enableValidation();
 
-// temp
-// const openImageEditFrm = new PopupWithForm({
-//   popup: modalEditImage,
-//   handleSubmitForm: (imageUrl) => {
-//     console.log(imageUrl);
-//   },
-// });
+api.getInitialCards().then((cards) => {
+  const cardList = new Section(
+    {
+      items: cards,
+      renderer: (data) => {
+        cardList.setItem(generateCardInstance(data).generateCard());
+      },
+    },
+    cardsContainer
+  );
+  cardList.renderer();
+});
 
+api.getUserInfo().then((userInfo) => {
+  user.setUserInfo(userInfo);
+});
+
+// change profile image
+const openImageEditForm = new PopupWithForm({
+  popup: modalEditImage,
+  handleSubmitForm: (imageUrl) => {
+    api.updateUserImage(imageUrl.avatar).then((res) => user.setUserInfo(res));
+  },
+});
+
+//change profile text
 const openProfileForm = new PopupWithForm({
   popup: modalEditForm,
   handleSubmitForm: (userInfo) => {
-    api.updateUserInfo(userInfo);
+    api.updateUserInfo(userInfo).then((result) => user.setUserInfo(result));
   },
 });
 
@@ -78,6 +92,11 @@ const openAddCardForm = new PopupWithForm({
   },
 });
 
+editProfileImageBtn.addEventListener('click', () => {
+  editImageFormValidator.resetValidation();
+  openImageEditForm.open();
+});
+
 addCardBtn.addEventListener('click', () => {
   cardFormValidator.resetValidation();
   openAddCardForm.open();
@@ -91,14 +110,14 @@ editProfileBtn.addEventListener('click', () => {
   openProfileForm.open();
 });
 
-const cardList = new Section(
-  {
-    items: api.getInitialCards(),
-    renderer: (data) => {
-      cardList.setItem(generateCardInstance(data).generateCard());
-    },
-  },
-  cardsContainer
-);
+// const cardList = new Section(
+//   {
+//     items: api.getInitialCards(),
+//     renderer: (data) => {
+//       cardList.setItem(generateCardInstance(data).generateCard());
+//     },
+//   },
+//   cardsContainer
+// );
 
-cardList.renderer();
+// cardList.renderer();
