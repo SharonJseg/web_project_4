@@ -38,3 +38,66 @@
 @import url(../blocks/form/__validation-error/_active/form__validation-error_active.css);
 @import url(../blocks/form/__submit-btn/form__submit-btn.css);
 @import url(../blocks/form/__submit-btn/_disabled/form__submit-btn_disabled.css);
+
+.card__like-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin: auto 18px auto 0;
+}
+
+.card__likes {
+  margin: 3px 0 0;
+  font-size: 13px;
+  line-height: 1.2;
+  text-align: center;
+  color: #000;
+}
+
+.form__heading_type_delete-card {
+  margin: 0;
+}
+
+.form__submit-btn_type_delete-card {
+  margin-top: 38px;
+}
+
+.profile__image-container {
+  position: relative;
+  margin-right: 30px;
+}
+
+.profile__image-edit {
+  cursor: pointer;
+  padding: 2px;
+  margin: 0;
+  border: none;
+  background: transparent;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s ease-in-out;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+}
+.profile__image-edit:hover {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  background: rgba(0, 0, 0, 0.8) url(../images/edit_image.svg) no-repeat center
+    center;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -ms-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+}

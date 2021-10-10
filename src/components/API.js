@@ -1,5 +1,3 @@
-import { user } from '../pages';
-
 export default class API {
   constructor({ address, token, groupId }) {
     this._address = address;
@@ -21,6 +19,24 @@ export default class API {
     );
   }
 
+  addNewCard(data) {
+    console.log(data);
+    const { title, url } = data;
+    return fetch(`${this._address}${this._groupId}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: `${this._token}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: title,
+        link: url,
+      }),
+    }).then((res) =>
+      res.ok ? res : Promise.reject(`${res.status}: ${res.statusText}`)
+    );
+  }
+
   getUserInfo() {
     return fetch(`${this._address}${this._groupId}/users/me`, {
       method: 'GET',
@@ -32,13 +48,11 @@ export default class API {
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`${res.status}: ${res.statusText}`)
       )
-      .then((userinfo) => {
-        const { name, about } = userinfo;
+      .then((userInfo) => {
+        const { name, about } = userInfo;
         this._name.textContent = name;
         this._job.textContent = about;
-      })
-      .finally(() => {
-        this.getUserInfo();
+        return userInfo;
       });
   }
 
@@ -54,6 +68,10 @@ export default class API {
         name: name,
         about: job,
       }),
+    }).then((res) => {
+      res.ok
+        ? this.getUserInfo()
+        : Promise.reject(`${res.status}: ${res.statusText}`);
     });
   }
 

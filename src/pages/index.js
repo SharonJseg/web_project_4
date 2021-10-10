@@ -16,8 +16,6 @@ import API from '../components/API';
 import { settings, FormValidator } from '../components/FormValidator.js';
 
 import {
-  modal,
-  initialCards,
   modalEditForm,
   modalAddCard,
   editProfileBtn,
@@ -29,6 +27,7 @@ import {
   profileJob,
   inputName,
   inputJob,
+  modalEditImage,
 } from '../utils/constants.js';
 
 const api = new API({
@@ -48,6 +47,14 @@ const cardFormValidator = new FormValidator(settings, modalAddCard);
 editFormValidator.enableValidation();
 cardFormValidator.enableValidation();
 
+// temp
+// const openImageEditFrm = new PopupWithForm({
+//   popup: modalEditImage,
+//   handleSubmitForm: (imageUrl) => {
+//     console.log(imageUrl);
+//   },
+// });
+
 const openProfileForm = new PopupWithForm({
   popup: modalEditForm,
   handleSubmitForm: (userInfo) => {
@@ -65,6 +72,8 @@ const generateCardInstance = (data) => {
 const openAddCardForm = new PopupWithForm({
   popup: modalAddCard,
   handleSubmitForm: (data) => {
+    const test = api.addNewCard(data);
+    console.log(test);
     cardList.prependItem(generateCardInstance(data).generateCard());
   },
 });
