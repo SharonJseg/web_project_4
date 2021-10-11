@@ -55,10 +55,8 @@ api
       const cardInstance = new Card(data, cardTemplate, user._id, {
         handleCardClick: (evt) => openImagePopup.open(evt),
         handleCardDelete: (card_id) => {
-          loading(modalConfirmDelete, false);
           confirmDeletePopup.open();
           deleteCardbtn.addEventListener('click', () => {
-            loading(modalConfirmDelete, true);
             api.deleteCard(card_id).then(() => {
               cardInstance.deleteCard();
               confirmDeletePopup.close();
