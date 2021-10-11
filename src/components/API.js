@@ -2,8 +2,6 @@ class API {
   constructor({ url, headers }) {
     this._url = url;
     this._headers = headers;
-    this._name = document.querySelector('.profile__name');
-    this._job = document.querySelector('.profile__job');
   }
 
   getAllInfo() {
@@ -17,18 +15,26 @@ class API {
     return Promise.reject(`${res.status}: ${res.statusText}`);
   }
 
+  _catchError(err) {
+    console.log(err);
+  }
+
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       method: 'GET',
       headers: this._headers,
-    }).then(this._handleResponse);
+    })
+      .then(this._handleResponse)
+      .catch(this._catchError);
   }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: this._headers,
-    }).then(this._handleResponse);
+    })
+      .then(this._handleResponse)
+      .catch(this._catchError);
   }
 
   updateUserInfo(userInfo) {
@@ -40,7 +46,9 @@ class API {
         name,
         about: job,
       }),
-    }).then(this._handleResponse);
+    })
+      .then(this._handleResponse)
+      .catch(this._catchError);
   }
 
   updateUserImage(link) {
@@ -50,7 +58,9 @@ class API {
       body: JSON.stringify({
         avatar: link,
       }),
-    }).then(this._handleResponse);
+    })
+      .then(this._handleResponse)
+      .catch(this._catchError);
   }
 
   addNewCard(data) {
@@ -62,28 +72,36 @@ class API {
         name: title,
         link: url,
       }),
-    }).then(this._handleResponse);
+    })
+      .then(this._handleResponse)
+      .catch(this._catchError);
   }
 
   deleteCard(card_id) {
     return fetch(`${this._url}/cards/${card_id}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then(this._handleResponse);
+    })
+      .then(this._handleResponse)
+      .catch(this._catchError);
   }
 
   likeCard(card_id) {
     return fetch(`${this._url}/cards/likes/${card_id}`, {
       method: 'PUT',
       headers: this._headers,
-    }).then(this._handleResponse);
+    })
+      .then(this._handleResponse)
+      .catch(this._catchError);
   }
 
   dislikeCard(card_id) {
     return fetch(`${this._url}/cards/likes/${card_id}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then(this._handleResponse);
+    })
+      .then(this._handleResponse)
+      .catch(this._catchError);
   }
 }
 

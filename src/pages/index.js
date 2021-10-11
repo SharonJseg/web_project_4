@@ -1,6 +1,6 @@
 import '../pages/index.css';
 import logoSrc from '../images/logo.svg';
-import profileImgSrc from '../images/profile_image.jpg';
+import profileImgSrc from '../images/profile_image.png';
 import addImgSrc from '../images/add.svg';
 
 document.querySelector('.logo').src = logoSrc;
@@ -26,7 +26,6 @@ import {
   addCardBtn,
   modalImage,
   cardTemplate,
-  cardsContainer,
   profileName,
   profileJob,
   profileImage,
@@ -34,10 +33,11 @@ import {
   inputJob,
   modalConfirmDelete,
 } from '../utils/constants.js';
+import loading from '../utils/loader.js';
 
 const openImagePopup = new PopupWithImage(modalImage);
 const confirmDeletePopup = new PopupConfirm(modalConfirmDelete);
-confirmDeletePopup.setEventListeners();
+
 const user = new UserInfo(profileName, profileJob, profileImage);
 
 const editFormValidator = new FormValidator(settings, modalEditForm);
@@ -55,13 +55,32 @@ api
       const cardInstance = new Card(data, cardTemplate, user._id, {
         handleCardClick: (evt) => openImagePopup.open(evt),
         handleCardDelete: (card_id) => {
+          loading(modalConfirmDelete, false);
           confirmDeletePopup.open();
           deleteCardbtn.addEventListener('click', () => {
+            loading(modalConfirmDelete, true);
             api.deleteCard(card_id).then(() => {
               cardInstance.deleteCard();
               confirmDeletePopup.close();
             });
           });
+        },
+        handleCardLike: (card_id) => {
+          if (
+            !cardInstance.likeIcon.classList.contains(
+              'card__like-button_active'
+            )
+          ) {
+            api.likeCard(card_id).then((number) => {
+              cardInstance.likeCard();
+              cardInstance.showNumOfLikes(number.likes.length);
+            });
+          } else {
+            api.dislikeCard(card_id).then((number) => {
+              cardInstance.dislikeCard();
+              cardInstance.showNumOfLikes(number.likes.length);
+            });
+          }
         },
       });
       return cardInstance;
@@ -74,21 +93,28 @@ api
           cardList.setItem(generateCardInstance(data).generateCard());
         },
       },
-      cardsContainer
+      '.cards__container'
     );
     cardList.renderer();
 
     const openAddCardForm = new PopupWithForm({
       popup: modalAddCard,
       handleSubmitForm: (data) => {
-        api.addNewCard(data).then((res) => {
-          cardList.prependItem(generateCardInstance(res).generateCard());
-        });
+        loading(modalAddCard, true);
+        api
+          .addNewCard(data)
+          .then((res) => {
+            cardList.prependItem(generateCardInstance(res).generateCard());
+          })
+          .then(() => {
+            openAddCardForm.close();
+          });
       },
     });
 
     addCardBtn.addEventListener('click', () => {
       cardFormValidator.resetValidation();
+      loading(modalAddCard, false);
       openAddCardForm.open();
     });
   })
@@ -102,25 +128,41 @@ api.getUserInfo().then((userInfo) => {
 const openImageEditForm = new PopupWithForm({
   popup: modalEditImage,
   handleSubmitForm: (imageUrl) => {
-    api.updateUserImage(imageUrl.avatar).then((res) => user.setUserInfo(res));
+    loading(modalEditImage, true);
+    api
+      .updateUserImage(imageUrl.avatar)
+      .then((res) => {
+        user.setUserInfo(res);
+      })
+      .then(() => {
+        openImageEditForm.close();
+      });
   },
+});
+
+editProfileImageBtn.addEventListener('click', () => {
+  editImageFormValidator.resetValidation();
+  loading(modalEditImage, false);
+  openImageEditForm.open();
 });
 
 //change profile text
 const openProfileForm = new PopupWithForm({
   popup: modalEditForm,
   handleSubmitForm: (userInfo) => {
-    api.updateUserInfo(userInfo).then((result) => user.setUserInfo(result));
+    loading(modalEditForm, true);
+    api
+      .updateUserInfo(userInfo)
+      .then((result) => user.setUserInfo(result))
+      .then(() => {
+        openProfileForm.close();
+      });
   },
-});
-
-editProfileImageBtn.addEventListener('click', () => {
-  editImageFormValidator.resetValidation();
-  openImageEditForm.open();
 });
 
 editProfileBtn.addEventListener('click', () => {
   editFormValidator.resetValidation();
+  loading(modalEditForm, false);
   const { name, job } = user.getUserInfo();
   document.querySelector(inputName).value = name;
   document.querySelector(inputJob).value = job;

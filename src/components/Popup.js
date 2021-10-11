@@ -1,4 +1,3 @@
-import { togglePopupClass, closePopupButton } from '../utils/constants.js';
 export default class Popup {
   constructor(popup) {
     this._popup = popup;
@@ -32,7 +31,7 @@ export default class Popup {
 
   setEventListeners() {
     this._popup
-      .querySelector(closePopupButton)
+      .querySelector('.modal__close-btn')
       .addEventListener('click', this._handleCloseButton);
     document.addEventListener('keydown', this._handleEscClose);
     this._popup.addEventListener('click', this._handleOverlayClose);
@@ -40,7 +39,7 @@ export default class Popup {
 
   removeEventListeners() {
     this._popup
-      .querySelector(closePopupButton)
+      .querySelector('.modal__close-btn')
       .removeEventListener('click', this._handleCloseButton);
     document.removeEventListener('keydown', this._handleEscClose);
     this._popup.addEventListener('click', this._handleOverlayClose);

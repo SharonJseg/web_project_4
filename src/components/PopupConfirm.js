@@ -1,9 +1,8 @@
 import Popup from './Popup';
 
 export default class PopupConfirm extends Popup {
-  constructor(popup, handleConfirm) {
+  constructor(popup) {
     super(popup);
-    this._handleConfirm = handleConfirm;
   }
 
   setEventListeners() {
