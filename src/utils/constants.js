@@ -29,6 +29,9 @@ export const imageForm = document.querySelector('#image-form');
 export const modalEditForm = document.querySelector('.modal_type_edit-profile');
 export const modalEditImage = document.querySelector('.modal_type_edit-image');
 export const modalAddCard = document.querySelector('.modal_type_add-element');
+export const modalConfirmDelete = document.querySelector(
+  '.modal_type_delete-card'
+);
 export const modalImage = document.querySelector('.modal_type_image');
 export const editProfileBtn = document.querySelector('.profile__edit-btn');
 export const editProfileImageBtn = document.querySelector(
@@ -53,3 +56,6 @@ export const cardTemplate = document.querySelector('#card-template').content;
 export const cardsContainer = '.cards__container';
 export const togglePopupClass = 'modal_opened';
 export const closePopupButton = '.modal__close-btn';
+export const deleteCardbtn = document.querySelector(
+  '.form__submit-btn_type_delete-card'
+);

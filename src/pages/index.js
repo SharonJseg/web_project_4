@@ -11,6 +11,7 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupConfirm from '../components/PopupConfirm';
 import UserInfo from '../components/UserInfo.js';
 import api from '../components/API';
 import { settings, FormValidator } from '../components/FormValidator.js';
@@ -20,6 +21,7 @@ import {
   modalAddCard,
   modalEditImage,
   editProfileBtn,
+  deleteCardbtn,
   editProfileImageBtn,
   addCardBtn,
   modalImage,
@@ -30,10 +32,13 @@ import {
   profileImage,
   inputName,
   inputJob,
+  modalConfirmDelete,
 } from '../utils/constants.js';
 
-export const openImagePopup = new PopupWithImage(modalImage);
-export const user = new UserInfo(profileName, profileJob, profileImage);
+const openImagePopup = new PopupWithImage(modalImage);
+const confirmDeletePopup = new PopupConfirm(modalConfirmDelete);
+confirmDeletePopup.setEventListeners();
+const user = new UserInfo(profileName, profileJob, profileImage);
 
 const editFormValidator = new FormValidator(settings, modalEditForm);
 const editImageFormValidator = new FormValidator(settings, modalEditImage);
@@ -43,18 +48,51 @@ editFormValidator.enableValidation();
 editImageFormValidator.enableValidation();
 cardFormValidator.enableValidation();
 
-api.getInitialCards().then((cards) => {
-  const cardList = new Section(
-    {
-      items: cards,
-      renderer: (data) => {
-        cardList.setItem(generateCardInstance(data).generateCard());
+api
+  .getAllInfo()
+  .then(([cards, user]) => {
+    const generateCardInstance = (data) => {
+      const cardInstance = new Card(data, cardTemplate, user._id, {
+        handleCardClick: (evt) => openImagePopup.open(evt),
+        handleCardDelete: (card_id) => {
+          confirmDeletePopup.open();
+          deleteCardbtn.addEventListener('click', () => {
+            api.deleteCard(card_id).then(() => {
+              cardInstance.deleteCard();
+              confirmDeletePopup.close();
+            });
+          });
+        },
+      });
+      return cardInstance;
+    };
+
+    const cardList = new Section(
+      {
+        items: cards,
+        renderer: (data) => {
+          cardList.setItem(generateCardInstance(data).generateCard());
+        },
       },
-    },
-    cardsContainer
-  );
-  cardList.renderer();
-});
+      cardsContainer
+    );
+    cardList.renderer();
+
+    const openAddCardForm = new PopupWithForm({
+      popup: modalAddCard,
+      handleSubmitForm: (data) => {
+        api.addNewCard(data).then((res) => {
+          cardList.prependItem(generateCardInstance(res).generateCard());
+        });
+      },
+    });
+
+    addCardBtn.addEventListener('click', () => {
+      cardFormValidator.resetValidation();
+      openAddCardForm.open();
+    });
+  })
+  .catch((err) => console.log(err));
 
 api.getUserInfo().then((userInfo) => {
   user.setUserInfo(userInfo);
@@ -76,30 +114,9 @@ const openProfileForm = new PopupWithForm({
   },
 });
 
-const generateCardInstance = (data) => {
-  const cardInstance = new Card(data, cardTemplate, {
-    handleCardClick: (evt) => openImagePopup.open(evt),
-  });
-  return cardInstance;
-};
-
-const openAddCardForm = new PopupWithForm({
-  popup: modalAddCard,
-  handleSubmitForm: (data) => {
-    const test = api.addNewCard(data);
-    console.log(test);
-    cardList.prependItem(generateCardInstance(data).generateCard());
-  },
-});
-
 editProfileImageBtn.addEventListener('click', () => {
   editImageFormValidator.resetValidation();
   openImageEditForm.open();
-});
-
-addCardBtn.addEventListener('click', () => {
-  cardFormValidator.resetValidation();
-  openAddCardForm.open();
 });
 
 editProfileBtn.addEventListener('click', () => {
@@ -109,15 +126,3 @@ editProfileBtn.addEventListener('click', () => {
   document.querySelector(inputJob).value = job;
   openProfileForm.open();
 });
-
-// const cardList = new Section(
-//   {
-//     items: api.getInitialCards(),
-//     renderer: (data) => {
-//       cardList.setItem(generateCardInstance(data).generateCard());
-//     },
-//   },
-//   cardsContainer
-// );
-
-// cardList.renderer();

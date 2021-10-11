@@ -5,12 +5,12 @@ export default class Popup {
   }
 
   open() {
-    this._popup.classList.add(togglePopupClass);
+    this._popup.classList.add('modal_opened');
     this.setEventListeners();
   }
 
   close() {
-    this._popup.classList.remove(togglePopupClass);
+    this._popup.classList.remove('modal_opened');
     this.removeEventListeners();
   }
 

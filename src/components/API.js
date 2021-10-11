@@ -6,9 +6,9 @@ class API {
     this._job = document.querySelector('.profile__job');
   }
 
-  // getAllInfo() {
-  //   return Promise.all([this.getInitialCards(), this.getUserInfo()]);
-  // }
+  getAllInfo() {
+    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+  }
 
   _handleResponse(res) {
     if (res.ok) {
@@ -43,28 +43,46 @@ class API {
     }).then(this._handleResponse);
   }
 
+  updateUserImage(link) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: link,
+      }),
+    }).then(this._handleResponse);
+  }
+
   addNewCard(data) {
     const { title, url } = data;
-    return fetch(`${this.url}/cards`, {
+    return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
         name: title,
         link: url,
       }),
-    })
-      .then(this._handleResponse)
-      .then((res) => console.log(res));
+    }).then(this._handleResponse);
   }
 
-  updateUserImage(test) {
-    console.log(test);
-    return fetch(`${this._url}/users/me/avatar`, {
-      method: 'PATCH',
+  deleteCard(card_id) {
+    return fetch(`${this._url}/cards/${card_id}`, {
+      method: 'DELETE',
       headers: this._headers,
-      body: JSON.stringify({
-        avatar: test,
-      }),
+    }).then(this._handleResponse);
+  }
+
+  likeCard(card_id) {
+    return fetch(`${this._url}/cards/likes/${card_id}`, {
+      method: 'PUT',
+      headers: this._headers,
+    }).then(this._handleResponse);
+  }
+
+  dislikeCard(card_id) {
+    return fetch(`${this._url}/cards/likes/${card_id}`, {
+      method: 'DELETE',
+      headers: this._headers,
     }).then(this._handleResponse);
   }
 }
