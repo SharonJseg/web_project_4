@@ -30,6 +30,10 @@ export default class PopupWithForm extends Popup {
     return inputValues;
   };
 
+  handleDelete(handle) {
+    this._handleSubmitForm = handle;
+  }
+
   _getInputValues() {
     this._formValues = {};
     this._inputList.forEach((input) => {

@@ -15,26 +15,18 @@ class API {
     return Promise.reject(`${res.status}: ${res.statusText}`);
   }
 
-  _catchError(err) {
-    console.log(err);
-  }
-
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       method: 'GET',
       headers: this._headers,
-    })
-      .then(this._handleResponse)
-      .catch(this._catchError);
+    }).then(this._handleResponse);
   }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: this._headers,
-    })
-      .then(this._handleResponse)
-      .catch(this._catchError);
+    }).then(this._handleResponse);
   }
 
   updateUserInfo(userInfo) {
@@ -46,9 +38,7 @@ class API {
         name,
         about: job,
       }),
-    })
-      .then(this._handleResponse)
-      .catch(this._catchError);
+    }).then(this._handleResponse);
   }
 
   updateUserImage(link) {
@@ -58,9 +48,7 @@ class API {
       body: JSON.stringify({
         avatar: link,
       }),
-    })
-      .then(this._handleResponse)
-      .catch(this._catchError);
+    }).then(this._handleResponse);
   }
 
   addNewCard(data) {
@@ -72,36 +60,28 @@ class API {
         name: title,
         link: url,
       }),
-    })
-      .then(this._handleResponse)
-      .catch(this._catchError);
+    }).then(this._handleResponse);
   }
 
   deleteCard(card_id) {
     return fetch(`${this._url}/cards/${card_id}`, {
       method: 'DELETE',
       headers: this._headers,
-    })
-      .then(this._handleResponse)
-      .catch(this._catchError);
+    }).then(this._handleResponse);
   }
 
   likeCard(card_id) {
     return fetch(`${this._url}/cards/likes/${card_id}`, {
       method: 'PUT',
       headers: this._headers,
-    })
-      .then(this._handleResponse)
-      .catch(this._catchError);
+    }).then(this._handleResponse);
   }
 
   dislikeCard(card_id) {
     return fetch(`${this._url}/cards/likes/${card_id}`, {
       method: 'DELETE',
       headers: this._headers,
-    })
-      .then(this._handleResponse)
-      .catch(this._catchError);
+    }).then(this._handleResponse);
   }
 }
 

@@ -64,13 +64,16 @@
 }
 
 .profile__image-container {
+  box-sizing: border-box;
   position: relative;
   margin-right: 30px;
+  max-width: 120px;
+  max-height: 120px;
 }
 
 .profile__image-edit {
   cursor: pointer;
-  padding: 2px;
+  padding: 0;
   margin: 0;
   border: none;
   background: transparent;
@@ -78,7 +81,7 @@
   height: 100%;
   width: 100%;
   position: absolute;
-  top: 49%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   transition: all 0.4s ease-in-out;

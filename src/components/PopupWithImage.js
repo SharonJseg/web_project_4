@@ -7,15 +7,10 @@ export default class PopupWithImage extends Popup {
     this._title = this._popup.querySelector('.modal__title');
   }
 
-  open(evt) {
+  open(title, image) {
     super.open();
-    const targetSrc = evt.target.parentElement
-      .querySelector('.card__image')
-      .getAttribute('src');
-    const targetName =
-      evt.target.parentElement.querySelector('.card__name').textContent;
-    this._image.setAttribute('src', targetSrc);
-    this._image.setAttribute('alt', targetName);
-    this._title.textContent = targetName;
+    this._image.setAttribute('src', image);
+    this._image.setAttribute('alt', title);
+    this._title.textContent = title;
   }
 }

@@ -11,7 +11,6 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import PopupConfirm from '../components/PopupConfirm';
 import UserInfo from '../components/UserInfo.js';
 import api from '../components/API';
 import { settings, FormValidator } from '../components/FormValidator.js';
@@ -21,7 +20,6 @@ import {
   modalAddCard,
   modalEditImage,
   editProfileBtn,
-  deleteCardbtn,
   editProfileImageBtn,
   addCardBtn,
   modalImage,
@@ -36,9 +34,6 @@ import {
 import loading from '../utils/loader.js';
 
 const openImagePopup = new PopupWithImage(modalImage);
-const confirmDeletePopup = new PopupConfirm(modalConfirmDelete);
-
-const user = new UserInfo(profileName, profileJob, profileImage);
 
 const editFormValidator = new FormValidator(settings, modalEditForm);
 const editImageFormValidator = new FormValidator(settings, modalEditImage);
@@ -51,33 +46,42 @@ cardFormValidator.enableValidation();
 api
   .getAllInfo()
   .then(([cards, user]) => {
+    const profile = new UserInfo(profileName, profileJob, profileImage);
+    profile.setUserInfo(user);
+
+    const confirmDeletePopup = new PopupWithForm({ popup: modalConfirmDelete });
     const generateCardInstance = (data) => {
       const cardInstance = new Card(data, cardTemplate, user._id, {
-        handleCardClick: (evt) => openImagePopup.open(evt),
-        handleCardDelete: (card_id) => {
+        handleCardClick: (title, image) => {
+          openImagePopup.open(title, image);
+        },
+        handleCardDelete: (cardId) => {
           confirmDeletePopup.open();
-          deleteCardbtn.addEventListener('click', () => {
-            api.deleteCard(card_id).then(() => {
-              cardInstance.deleteCard();
-              confirmDeletePopup.close();
-            });
+          confirmDeletePopup.handleDelete(() => {
+            api
+              .deleteCard(cardId)
+              .then(() => {
+                cardInstance.deleteCard();
+                confirmDeletePopup.close();
+              })
+              .catch((err) => console.log(err));
           });
         },
-        handleCardLike: (card_id) => {
-          if (
-            !cardInstance.likeIcon.classList.contains(
-              'card__like-button_active'
-            )
-          ) {
-            api.likeCard(card_id).then((number) => {
-              cardInstance.likeCard();
-              cardInstance.showNumOfLikes(number.likes.length);
-            });
-          } else {
-            api.dislikeCard(card_id).then((number) => {
+        handleCardLike: (cardId) => {
+          const toggleLike = cardInstance.isLiked();
+          if (toggleLike) {
+            api.dislikeCard(cardId).then((number) => {
               cardInstance.dislikeCard();
               cardInstance.showNumOfLikes(number.likes.length);
             });
+          } else {
+            api
+              .likeCard(cardId)
+              .then((number) => {
+                cardInstance.likeCard();
+                cardInstance.showNumOfLikes(number.likes.length);
+              })
+              .catch((err) => console.log(err));
           }
         },
       });
@@ -106,63 +110,64 @@ api
           })
           .then(() => {
             openAddCardForm.close();
-          });
+          })
+          .catch((err) => console.log(err))
+          .finally(() => loading(modalAddCard, false));
       },
     });
 
     addCardBtn.addEventListener('click', () => {
       cardFormValidator.resetValidation();
-      loading(modalAddCard, false);
       openAddCardForm.open();
+    });
+
+    const openProfileForm = new PopupWithForm({
+      popup: modalEditForm,
+      handleSubmitForm: (userInfo) => {
+        loading(modalEditForm, true);
+        api
+          .updateUserInfo(userInfo)
+          .then((result) => {
+            profile.setUserInfo(result);
+          })
+          .then(() => {
+            openProfileForm.close();
+          })
+          .catch((err) => console.log(err))
+          .finally(() => loading(modalEditForm, false));
+      },
+    });
+
+    editProfileBtn.addEventListener('click', () => {
+      editFormValidator.resetValidation();
+      const { name, job } = profile.getUserInfo();
+      inputName.value = name;
+      inputJob.value = job;
+      openProfileForm.open();
+    });
+
+    const openImageEditForm = new PopupWithForm({
+      popup: modalEditImage,
+      handleSubmitForm: (imageUrl) => {
+        loading(modalEditImage, true);
+        api
+          .updateUserImage(imageUrl.avatar)
+          .then((res) => {
+            profile.setUserInfo(res);
+          })
+          .then(() => {
+            openImageEditForm.close();
+          })
+          .catch((err) => console.log(err))
+          .finally(() => {
+            loading(modalEditImage, false);
+          });
+      },
+    });
+
+    editProfileImageBtn.addEventListener('click', () => {
+      editImageFormValidator.resetValidation();
+      openImageEditForm.open();
     });
   })
   .catch((err) => console.log(err));
-
-api.getUserInfo().then((userInfo) => {
-  user.setUserInfo(userInfo);
-});
-
-// change profile image
-const openImageEditForm = new PopupWithForm({
-  popup: modalEditImage,
-  handleSubmitForm: (imageUrl) => {
-    loading(modalEditImage, true);
-    api
-      .updateUserImage(imageUrl.avatar)
-      .then((res) => {
-        user.setUserInfo(res);
-      })
-      .then(() => {
-        openImageEditForm.close();
-      });
-  },
-});
-
-editProfileImageBtn.addEventListener('click', () => {
-  editImageFormValidator.resetValidation();
-  loading(modalEditImage, false);
-  openImageEditForm.open();
-});
-
-//change profile text
-const openProfileForm = new PopupWithForm({
-  popup: modalEditForm,
-  handleSubmitForm: (userInfo) => {
-    loading(modalEditForm, true);
-    api
-      .updateUserInfo(userInfo)
-      .then((result) => user.setUserInfo(result))
-      .then(() => {
-        openProfileForm.close();
-      });
-  },
-});
-
-editProfileBtn.addEventListener('click', () => {
-  editFormValidator.resetValidation();
-  loading(modalEditForm, false);
-  const { name, job } = user.getUserInfo();
-  document.querySelector(inputName).value = name;
-  document.querySelector(inputJob).value = job;
-  openProfileForm.open();
-});

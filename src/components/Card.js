@@ -37,7 +37,9 @@ export default class Card {
       });
     this._cardElement
       .querySelector('.card__image')
-      .addEventListener('click', this._handleCardClick);
+      .addEventListener('click', () => {
+        this._handleCardClick(this._text, this._image);
+      });
   }
 
   _setAttributes(cardElement, attribs) {
@@ -46,21 +48,24 @@ export default class Card {
     }
   }
 
-  showNumOfLikes(number) {
-    this._cardElement.querySelector('.card__likes').textContent = number;
-  }
-
   _displayDeleteButton() {
     if (this._userId != this._ownerId) {
       this._cardElement.querySelector('.card__delete-button').style.display =
         'none';
     }
   }
+  showNumOfLikes(number) {
+    this._cardElement.querySelector('.card__likes').textContent = number;
+  }
 
-  isCardLiked() {
+  _populateLikes() {
     this._likes.forEach((like) =>
       like._id === this._userId ? this.likeCard() : this.dislikeCard()
     );
+  }
+
+  isLiked() {
+    return this.likeIcon.classList.contains('card__like-button_active');
   }
 
   generateCard() {
@@ -74,7 +79,7 @@ export default class Card {
     this.showNumOfLikes(this._likes.length);
     this._cardElement.querySelector('.card__name').textContent = this._text;
     this._setEventListeners(this.cardElement);
-    this.isCardLiked();
+    this._populateLikes();
     return this._cardElement;
   }
 
@@ -89,9 +94,5 @@ export default class Card {
   deleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
-  }
-
-  _likeCard(evt) {
-    evt.target.classList.toggle('card__like-button_active');
   }
 }
