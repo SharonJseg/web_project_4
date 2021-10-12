@@ -2,10 +2,12 @@ import '../pages/index.css';
 import logoSrc from '../images/logo.svg';
 import profileImgSrc from '../images/profile_image.png';
 import addImgSrc from '../images/add.svg';
+import ImgPlacholder from '../images/image_placeholder.jpg';
 
 document.querySelector('.logo').src = logoSrc;
 document.querySelector('.profile__image').src = profileImgSrc;
 document.querySelector('.profile-icon').src = addImgSrc;
+document.querySelector('.modal__image').src = ImgPlacholder;
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
